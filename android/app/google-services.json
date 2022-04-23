@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "396459237337",
+    "project_id": "iot-labmanager",
+    "storage_bucket": "iot-labmanager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396459237337:android:41e79c317356c37e1283c8",
+        "android_client_info": {
+          "package_name": "com.technion.iot.lab_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396459237337-a6bnnphllrb0s5874p0h96qdtbkts8s7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS22oKopW8qvwBhUy71To_Egpoe_SHxzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396459237337-a6bnnphllrb0s5874p0h96qdtbkts8s7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
