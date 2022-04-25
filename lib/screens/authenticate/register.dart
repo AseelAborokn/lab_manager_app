@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import '../../services/auth.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  const Register({
+    Key? key,
+    this.toggleView
+  }) : super(key: key);
+
+  // Fields
+  final Function? toggleView;
 
   @override
   State<Register> createState() => _RegisterState();
@@ -23,6 +29,18 @@ class _RegisterState extends State<Register> {
         backgroundColor: Colors.green[500],
         elevation: 0.0,
         title: const Text('Sign Up To LabManager'),
+        actions: <Widget>[
+          TextButton.icon(
+            // Switching to Sign In screen
+            onPressed: () {
+              if(widget.toggleView != null) {
+                widget.toggleView!();
+              }
+            },
+            icon: const Icon(Icons.person),
+            label: const Text('Sign In')
+          ),
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -62,8 +80,6 @@ class _RegisterState extends State<Register> {
                 ),
                 onPressed: () async {
                   // Sign Up the user to firebase
-                  print(email);
-                  print(password);
                 },
                 child: const Text(
                   'Register',
