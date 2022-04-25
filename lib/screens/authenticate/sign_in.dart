@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/services/auth.dart';
+import 'package:lab_manager/shared/loading_spinner.dart';
+
+import '../../shared/constants.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({
@@ -22,10 +25,11 @@ class _SignInState extends State<SignIn> {
   String email = "";
   String password = "";
   String error = "";
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return (loading) ? const LoadingSpinner() : Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.green[500],
@@ -46,26 +50,13 @@ class _SignInState extends State<SignIn> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        // signInAnonymously
-        // child: ElevatedButton(
-        //   child: const Text('Sign In Anonymously'),
-        //   onPressed: () async {
-        //     dynamic user = await _authService.signInAnonymously();
-        //
-        //     if (user == null) {
-        //       print("Failed Signing In");
-        //     } else {
-        //       print("Signed In Successfully");
-        //       print("userUID = " + user.uid);
-        //     }
-        //   },
-        // ),
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               const SizedBox(height: 20.0,),
               TextFormField(
+                decoration: getInputDecoration('Email'),
                 validator: (val) => (val!.isEmpty) ? "Email cannot be empty!" : null,
                 onChanged: (val) {
                   setState(() => email = val);
@@ -73,6 +64,7 @@ class _SignInState extends State<SignIn> {
               ),
               const SizedBox(height: 20.0,),
               TextFormField(
+                decoration: getInputDecoration('Password'),
                 validator: (val) => (val!.isEmpty) ? "Password cannot be empty!" : null,
                 obscureText: true,
                 onChanged: (val) {
@@ -81,22 +73,24 @@ class _SignInState extends State<SignIn> {
               ),
               const SizedBox(height: 20.0,),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.green[400],
-                ),
-                onPressed: () async {
-                  // Sign Up the user to firebase with email and password
-                  if (_formKey.currentState!.validate()) {
-                    dynamic result = await _authService.signInWithEmailAndPassword(email, password);
-                    if (result == null) {
-                      setState(() => error = "Sorry, Invalid Credentials!");
-                    }
-                  }
-                },
                 child: const Text(
                   'Sign In',
                   style: TextStyle(color: Colors.white),
                 ),
+                style: ElevatedButton.styleFrom(primary: Colors.green[400]),
+                onPressed: () async {
+                  // Sign Up the user to firebase with email and password
+                  if (_formKey.currentState!.validate()) {
+                    setState(() => loading = true);
+                    dynamic result = await _authService.signInWithEmailAndPassword(email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = "Sorry, Invalid Credentials!";
+                        loading = false;
+                      });
+                    }
+                  }
+                },
               ),
               SizedBox(height: 12.0,),
               Text(
