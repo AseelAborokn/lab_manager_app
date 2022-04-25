@@ -16,10 +16,12 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final AuthService _authService = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   // Text field states
   String email = "";
   String password = "";
+  String error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +60,19 @@ class _RegisterState extends State<Register> {
         //   },
         // ),
         child: Form(
+          key: _formKey,
           child: Column(
             children: <Widget>[
               const SizedBox(height: 20.0,),
               TextFormField(
+                validator: (val) => (val!.isEmpty) ? "Email cannot be empty!" : null,
                 onChanged: (val) {
                   setState(() => email = val);
                 },
               ),
               const SizedBox(height: 20.0,),
               TextFormField(
+                validator: (val) => (val!.isEmpty) ? "Password cannot be empty!" : null,
                 obscureText: true,
                 onChanged: (val) {
                   setState(() => password = val);
@@ -80,11 +85,22 @@ class _RegisterState extends State<Register> {
                 ),
                 onPressed: () async {
                   // Sign Up the user to firebase
+                  if (_formKey.currentState!.validate()) {
+                    dynamic result = await _authService.registerWithEmailAndPassword(email, password);
+                    if (result == null) {
+                      setState(() => error = "Please Supply Valid Data!");
+                    }
+                  }
                 },
                 child: const Text(
                   'Register',
                   style: TextStyle(color: Colors.white),
                 ),
+              ),
+              SizedBox(height: 12.0,),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red[700], fontSize: 14.0),
               ),
             ],
           ),

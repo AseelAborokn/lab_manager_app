@@ -16,7 +16,6 @@ class AuthService {
     .map(_labUserFromFirebaseUser);
   }
 
-
   // Sign-In Anonymously
   Future signInAnonymously() async {
     try {
@@ -24,22 +23,42 @@ class AuthService {
       User? user = result.user;
       return _labUserFromFirebaseUser(user);
     } catch(error) {
-      print("signInAnonymously FAILED!");
+      print("signInAnonymously() FAILED!");
       print(error.toString());
       return null;
     }
   }
 
   // Sign-In email & password
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+      return _labUserFromFirebaseUser(user);
+    } catch(error) {
+      print("signInWithEmailAndPassword(String, String) FAILED!");
+      print(error.toString());
+    }
+  }
 
   // Register email & password
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+      return _labUserFromFirebaseUser(user);
+    } catch(error) {
+      print("registerWithEmailAndPassword(String, String) FAILED!");
+      print(error.toString());
+    }
+  }
 
   // Sign-Out
   Future signOut() async {
     try {
       return await _firebaseAuth.signOut();
     } catch(error) {
-      print("signOut FAILED!");
+      print("signOut() FAILED!");
       print(error.toString());
     }
   }
