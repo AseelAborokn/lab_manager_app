@@ -7,7 +7,7 @@ class AuthService {
 
   // Create a LabUser object based on Firebase-User object
   LabUser? _labUserFromFirebaseUser(User? user) {
-    return user != null ? LabUser(uid: user.uid): null;
+    return user != null ? LabUser(uid: user.uid, authId: ""): null;
   }
 
   // Auth change user stream
