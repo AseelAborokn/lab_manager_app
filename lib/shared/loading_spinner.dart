@@ -7,10 +7,10 @@ class LoadingSpinner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green.shade300,
+      color: Colors.blueGrey,
       child: const Center(
         child: SpinKitSpinningLines(
-          color: Colors.black,
+          color: Colors.greenAccent,
           size: 50.0,
         ),
       ),

@@ -1,18 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lab_manager/screens/authenticate/register.dart';
 import 'package:lab_manager/services/auth.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
 
 import '../../shared/constants.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({
-    Key? key,
-    this.toggleView
-  }) : super(key: key);
-
-  // Fields
-  final Function? toggleView;
-
+  // const SignIn({
+  //   Key? key,
+  //   this.toggleView
+  // }) : super(key: key);
+  //
+  // // Fields
+  // final Function? toggleView;
   @override
   State<SignIn> createState() => _SignInState();
 }
