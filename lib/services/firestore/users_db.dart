@@ -16,4 +16,12 @@ class UsersCollection {
   }
   // Delete a LabUser
   // Update a LabUser
+
+  // Get a LabUser
+  Future<LabUser?> getByUid(String uid) {
+    return _db.doc(uid).withConverter(
+        fromFirestore: (snapshot, _) => LabUser.fromJson(snapshot.id, snapshot.data()!),
+        toFirestore: (LabUser labUser, _) => labUser.toJson()
+    ).get().then((value) => value.data());
+  }
 }

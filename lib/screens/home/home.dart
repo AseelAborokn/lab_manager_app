@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/services/auth.dart';
 
+import '../../shared/widgets/navigation_drawer.dart';
+
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -8,24 +10,29 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthService _authService = AuthService();
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey.shade800,
+      drawer: NavigationDrawerWidget(),
       appBar: AppBar(
-        backgroundColor: Colors.green[500],
-        elevation: 0.0,
-        title: const Text('Welcome To LabManager'),
-        actions: <Widget>[
-          TextButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('LogOut'),
-            onPressed: () async {
-              await _authService.signOut();
+        // Title
+        title: const Text('LabManager', style: TextStyle(color: Colors.teal)),
+        centerTitle: true,
+        // Application Bar Color
+        backgroundColor: Colors.grey.shade900,
+        // Menu Drawer styling
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            color: Colors.teal,
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
             },
-          )
-        ],
+          ),
+        ),
+        // Profile Icon
+        actions: const <Widget>[],
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        child: null
+          child: null
       ),
     );
   }
