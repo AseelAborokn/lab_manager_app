@@ -7,34 +7,11 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final UsersCollection _usersCollection = UsersCollection();
 
-  // Create a LabUser object based on Firebase-User object
-  LabUser? _labUserFromFirebaseUser(User? user) {
-    if (user != null) {
-      return LabUser(uid: user.uid, email: '', username: '');
-    } else {
-      return null;
-    }
-  }
-
   // Auth change user stream
   // TODO("Should get the lab_user from the DBs")
-  Stream<LabUser?> get user {
-    return _firebaseAuth.authStateChanges()
-    .map(_labUserFromFirebaseUser);
+  Stream<User?> get user {
+    return _firebaseAuth.authStateChanges();
   }
-
-  // Sign-In Anonymously
-  // Future signInAnonymously() async {
-  //   try {
-  //     UserCredential result = await _firebaseAuth.signInAnonymously();
-  //     User? user = result.user;
-  //     return _labUserFromFirebaseUser(user);
-  //   } catch(error) {
-  //     print("signInAnonymously() FAILED!");
-  //     print(error.toString());
-  //     return null;
-  //   }
-  // }
 
   // Sign-In email & password
   Future signInWithEmailAndPassword(String email, String password) async {
@@ -44,7 +21,6 @@ class AuthService {
 
       if (user == null) return null;
       return await _usersCollection.getByUid(user.uid).then((value) => value);
-      return _labUserFromFirebaseUser(user);
     } catch(error) {
       print("signInWithEmailAndPassword(String, String) FAILED!");
       print(error.toString());
@@ -65,6 +41,7 @@ class AuthService {
 
       if (user == null) return null;
 
+      // TODO("Check if possible to Register")
       final Future<LabUser?> labUserResult = _usersCollection.register(LabUser(uid: user.uid, username: username, email: email, cid: cid, phoneNumber: phoneNumber))
           .then((value) => _usersCollection.getByUid(user.uid)).then((value) => value);
       return await labUserResult;

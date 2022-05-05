@@ -7,21 +7,29 @@ class UsersCollection {
   // collection references
   final CollectionReference _db = FirebaseFirestore.instance.collection(collectionName);
 
-  // Create a new LabUser
-  Future<void> register(LabUser user) {
-    return _db.doc(user.uid).withConverter<LabUser>(
+  DocumentReference<LabUser> _getDoc(String uid) =>
+    _db.doc(uid).withConverter<LabUser>(
         fromFirestore: (snapshot, _) => LabUser.fromJson(snapshot.id, snapshot.data()!),
         toFirestore: (LabUser labUser, _) => labUser.toJson()
-    ).set(user);
-  }
+    );
+
+  // Create a new LabUser
+  Future<void> register(LabUser user) async =>
+      await _getDoc(user.uid).set(user);
+
   // Delete a LabUser
+
   // Update a LabUser
 
   // Get a LabUser
-  Future<LabUser?> getByUid(String uid) {
-    return _db.doc(uid).withConverter(
-        fromFirestore: (snapshot, _) => LabUser.fromJson(snapshot.id, snapshot.data()!),
-        toFirestore: (LabUser labUser, _) => labUser.toJson()
-    ).get().then((value) => value.data());
-  }
+  Future<LabUser?> getByUid(String uid) async =>
+      await _getDoc(uid).get().then((value) => value.data());
+
+  // get LabUsers Stream
+  Stream<QuerySnapshot> get labUsers =>
+      _db.snapshots();
+
+  // get the current connected user as LabUser (with each time it is updated!)
+  Stream<LabUser?> getCurrentLabUser(String uid) =>
+      _getDoc(uid).snapshots().map((event) => event.data());
 }

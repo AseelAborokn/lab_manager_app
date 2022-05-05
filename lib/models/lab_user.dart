@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LabUser {
-  // Fields
+  // Document Id
   final String uid;
+  // Fields
   String username;
   String email;
   String cid;
@@ -29,7 +30,6 @@ class LabUser {
   // Create JSON object from LabUser object.
   Map<String, dynamic> toJson() {
     return Map<String, dynamic>.from({
-      "uid": uid,
       "username": username,
       "email": email,
       "cid": cid,

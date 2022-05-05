@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/screens/authenticate/authenticate.dart';
@@ -12,13 +13,13 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labUser = Provider.of<LabUser?>(context);
+    final user = Provider.of<User?>(context);
 
-    if (labUser == null) {
-      print(labUser);
+    if (user == null) {
+      print(user);
       return const Authenticate();
     } else {
-      print(labUser.uid);
+      print(user.uid);
       return const Home();
     }
   }

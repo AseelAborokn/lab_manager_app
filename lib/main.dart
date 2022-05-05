@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/screens/authenticate/authenticate.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<LabUser?>.value(
+    return StreamProvider<User?>.value(
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
