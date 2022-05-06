@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:lab_manager/shared/results/registration_results.dart';
 
 import '../../services/auth.dart';
-import '../../shared/constants.dart';
 
 bool validPhoneNumber(String phoneNumber) {
   if (phoneNumber.length != 10) {
@@ -16,8 +16,8 @@ bool validEmail(String email) {
   return EmailValidator.validate(email);
 }
 
-bool validCid(String cid) {
-  return cid.length == 8;
+bool validCid(String? cid) {
+  return (cid == null || cid.length == 8);
 }
 
 class Register extends StatefulWidget {
@@ -36,8 +36,10 @@ class _RegisterState extends State<Register> {
   String password = "";
   String username = "";
   String phoneNumber = "";
-  String cid = "";
-  String error = "";
+  String? cid;
+
+  String errorMessage = "";
+  bool errorFound = false;
   bool loading = false;
 
   @override
@@ -188,27 +190,35 @@ class _RegisterState extends State<Register> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Register
-                    TextButton.icon(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() => loading = true);
-                            dynamic result = await _authService.registerWithEmailAndPassword(email, password, username, cid, phoneNumber);
-                            if (result != null) {
-                              Navigator.of(context).pop();
-                            }
-                            setState(() => loading = false);
-
+                // Buttons
+                Expanded(
+                    child: TextButton.icon(
+                      onPressed: () async {
+                        setState(() => loading = true);
+                        if (_formKey.currentState!.validate()) {
+                          RegistrationResult result = await _authService.signUp(email, password, username, cid, phoneNumber);
+                          if (result.labUser != null) {
+                            Navigator.of(context).pop();
                           }
-                        },
-                        icon: const Icon(Icons.app_registration, color: Colors.greenAccent,),
-                        label: const Text("Register", style: TextStyle(color: Colors.greenAccent))
-                    )
-                  ],
-                )
+                          else {
+                            setState(() {
+                              errorFound = true;
+                              errorMessage = result.errorMessage ?? "Failed To Register, Please Retry Latter";
+                            });
+                          }
+                        }
+                        setState(() => loading = false);
+                      },
+                      icon: const Icon(Icons.app_registration, color: Colors.greenAccent,),
+                      label: const Text("Register", style: TextStyle(color: Colors.greenAccent))
+                    ),
+                ),
+                // Error Message
+                Center(
+                  child: (errorFound)
+                      ? Text(errorMessage, style: const TextStyle(fontSize: 15, color: Colors.deepOrange),)
+                      : const Text(""),
+                ),
               ],
             ),
           ),

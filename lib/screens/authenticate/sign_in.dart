@@ -1,19 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lab_manager/screens/authenticate/register.dart';
 import 'package:lab_manager/services/auth.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
+import 'package:lab_manager/shared/results/registration_results.dart';
 
-import '../../shared/constants.dart';
 
 class SignIn extends StatefulWidget {
-  // const SignIn({
-  //   Key? key,
-  //   this.toggleView
-  // }) : super(key: key);
-  //
-  // // Fields
-  // final Function? toggleView;
+
   @override
   State<SignIn> createState() => _SignInState();
 }
@@ -25,7 +18,9 @@ class _SignInState extends State<SignIn> {
   // Text field states
   String email = "";
   String password = "";
-  String error = "";
+
+  String errorMessage = "";
+  bool errorFound = false;
   bool loading = false;
 
   @override
@@ -39,23 +34,20 @@ class _SignInState extends State<SignIn> {
         // Application Bar Color
         backgroundColor: Colors.grey.shade900,
       ),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
-          child: Form(
-            child: Card(
-              color: Colors.black12,
-              margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 1.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // Text Inputs
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      // Email
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+        child: Form(
+          child: Card(
+            color: Colors.black12,
+            margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 1.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // Text Inputs
+                Wrap(
+                    runSpacing: 10,
+                    children: <Widget>[ // Email
                       TextFormField(
                         style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -101,19 +93,35 @@ class _SignInState extends State<SignIn> {
                         onChanged: (val) {
                           setState(() => password = val);
                         },
-                      ),
-                    ],
-                  ),
-                  Row(
+                      )
+                    ]
+                ),
+                // Buttons
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Sign In
                       TextButton.icon(
-                          onPressed: () async => await _authService.signInWithEmailAndPassword(email, password),
+                          onPressed: () async {
+                            setState(() => loading = true);
+                            RegistrationResult result = await  _authService.signIn(email, password);;
+                            if (result.labUser != null) {
+                              Navigator.of(context).pop();
+                            }
+                            else {
+                              setState(() {
+                                errorFound = true;
+                                errorMessage = result.errorMessage ?? "Failed To Login, Please Retry Latter";
+                              });
+                            }
+                            setState(() => loading = false);
+                          },
                           icon: const Icon(Icons.login, color: Colors.greenAccent,),
                           label: const Text("Sign In", style: TextStyle(color: Colors.greenAccent))
                       ),
-                      const SizedBox(width: 60),
+                      const SizedBox(width: 20,),
                       // Register
                       TextButton.icon(
                           onPressed: () => Navigator.of(context).pushNamed("/authenticate/register"),
@@ -121,9 +129,15 @@ class _SignInState extends State<SignIn> {
                           label: const Text("Don't have an account?", style: TextStyle(color: Colors.greenAccent))
                       )
                     ],
-                  )
-                ],
-              ),
+                  ),
+                ),
+                // Error Messages
+                Center(
+                  child: (errorFound)
+                      ? Text(errorMessage, style: const TextStyle(fontSize: 15, color: Colors.deepOrange),)
+                      : const Text(""),
+                ),
+              ],
             ),
           ),
         ),

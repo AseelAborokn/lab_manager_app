@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/screens/authenticate/authenticate.dart';
 import 'package:lab_manager/services/auth.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
-  NavigationDrawerWidget({Key? key}) : super(key: key);
+  NavigationDrawerWidget({Key? key, required this.labUser}) : super(key: key);
+
   static const double menuItemHeight = 48.0;
   final AuthService _authService = AuthService();
-  final String name = "Aseel.Aborokn";
-  final String email = "aseel.aborokn@gmail.com";
-  final String urlImage = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80";
+  final LabUser labUser;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class NavigationDrawerWidget extends StatelessWidget {
       backgroundColor: Colors.grey.shade900,
       child: ListView(
         children: <Widget>[
-          buildHeader(name: name, email: email, urlImage: urlImage, onClicked: () {}),
+          buildHeader(name: labUser.username, email: labUser.email, onClicked: () {}),
           buildMenuItem(text: "Close", icon: Icons.arrow_back, onClicked: () => selectedItem(context, -1)),
           const Divider(color: Colors.white, endIndent: 15, indent: 15),
           buildMenuItem(text: "Home",
@@ -83,7 +83,6 @@ class NavigationDrawerWidget extends StatelessWidget {
   Widget buildHeader({
     required String name,
     required String email,
-    required String urlImage,
     VoidCallback? onClicked,
   }) =>
       InkWell(
@@ -93,7 +92,7 @@ class NavigationDrawerWidget extends StatelessWidget {
           child: Row(
             children: [
               const SizedBox(width: 20),
-              CircleAvatar(radius: 30, backgroundImage: NetworkImage(urlImage)),
+              // CircleAvatar(radius: 30, backgroundImage: NetworkImage(urlImage)),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -6,7 +6,7 @@ class LabUser {
   // Fields
   String username;
   String email;
-  String cid;
+  String? cid;
   String phoneNumber;
 
   // Constructor
@@ -14,7 +14,7 @@ class LabUser {
     required this.uid,
     required this.username,
     required this.email,
-    this.cid = "",
+    this.cid,
     this.phoneNumber = ""
   });
 
