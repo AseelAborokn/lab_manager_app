@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/services/auth.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
@@ -6,6 +5,7 @@ import 'package:lab_manager/shared/results/registration_results.dart';
 
 
 class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -13,7 +13,6 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _authService = AuthService();
-  final _formKey = GlobalKey<FormState>();
 
   // Text field states
   String email = "";
@@ -106,7 +105,7 @@ class _SignInState extends State<SignIn> {
                       TextButton.icon(
                           onPressed: () async {
                             setState(() => loading = true);
-                            RegistrationResult result = await  _authService.signIn(email, password);;
+                            RegistrationResult result = await  _authService.signIn(email, password);
                             if (result.labUser != null) {
                               Navigator.of(context).pop();
                             }
@@ -121,6 +120,7 @@ class _SignInState extends State<SignIn> {
                           icon: const Icon(Icons.login, color: Colors.greenAccent,),
                           label: const Text("Sign In", style: TextStyle(color: Colors.greenAccent))
                       ),
+                      // Small Space In Between
                       const SizedBox(width: 20,),
                       // Register
                       TextButton.icon(

@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
 import 'package:lab_manager/shared/results/registration_results.dart';
@@ -8,8 +7,6 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final UsersCollection _usersCollection = UsersCollection();
 
-  // Auth change user stream
-  // TODO("Should get the lab_user from the DBs")
   Stream<User?> get user {
     return _firebaseAuth.authStateChanges();
   }
@@ -22,6 +19,7 @@ class AuthService {
       User? user = result.user;
       if (user == null) return RegistrationResult(errorMessage: "Wrong Credentials!");
 
+      // Map The Authenticated User To LabUser
       LabUser? labUser = await _usersCollection.getByUid(user.uid).then((value) => value);
       return RegistrationResult(labUser: labUser, errorMessage: "User Not Found!");
     } catch(error) {

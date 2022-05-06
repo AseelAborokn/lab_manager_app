@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
-import 'package:lab_manager/screens/authenticate/authenticate.dart';
 import 'package:lab_manager/services/auth.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
@@ -48,7 +47,6 @@ class NavigationDrawerWidget extends StatelessWidget {
     required IconData icon,
     VoidCallback? onClicked
   }) {
-    const hoveredColor = Colors.tealAccent;
     const white = Colors.white;
     return  ListTile(
       leading: Icon(icon, color: white),
