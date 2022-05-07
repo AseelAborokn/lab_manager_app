@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:lab_manager/shared/results/registration_results.dart';
 
 import '../../services/auth.dart';
-
-bool validPhoneNumber(String phoneNumber) {
-  if (phoneNumber.length != 10) {
-    return false;
-  }
-  return true;
-}
-
-bool validEmail(String email) {
-  return EmailValidator.validate(email);
-}
-
-bool validCid(String? cid) {
-  return (cid == null || cid.length == 8);
-}
+import '../../shared/utils/functions.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -186,7 +171,7 @@ class _RegisterState extends State<Register> {
                       onChanged: (val) {
                         setState(() => cid = val);
                       },
-                      validator: (val) => (val == null || !validCid(cid)) ? "Invalid Password" : null,
+                      validator: (val) => (val == null || !validCid(cid)) ? "Invalid Card Id" : null,
                     ),
                   ],
                 ),

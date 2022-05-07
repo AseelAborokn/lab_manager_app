@@ -19,31 +19,34 @@ class UsersCollection {
         toFirestore: (LabUser labUser, _) => labUser.toJson()
     );
 
-  // Create a new LabUser
-  Future<void> register(LabUser user) async =>
+  Future<void> _upsertUser(LabUser user) async =>
       await _getDoc(user.uid).set(user);
+
+  // Create a new LabUser
+  Future<void> register(LabUser user) async => _upsertUser(user);
 
   // Delete a LabUser
 
   // Update a LabUser
+  Future<void> update(LabUser user) async =>  _upsertUser(user);
 
   // Get a LabUser
   Future<LabUser?> getByUid(String uid) async =>
       await _getDoc(uid).get().then((value) => value.data());
 
-  Future<int> checkUniqueEmail(String email) async =>
-    await _withLabUserConvertor(_db.where('email', isEqualTo: email)).get()
+  Future<int> checkUniqueEmail(String email, String? uid) async =>
+    await _withLabUserConvertor(_db.where('email', isEqualTo: email).where(FieldPath.documentId, isNotEqualTo: uid)).get()
         .then((value) => value.docs)
         .then((value) => value.length);
 
-  Future<int> checkUniqueUsername(String username) async =>
-      await _withLabUserConvertor(_db.where('username', isEqualTo: username)).get()
+  Future<int> checkUniqueUsername(String username, String? uid) async =>
+      await _withLabUserConvertor(_db.where('username', isEqualTo: username).where(FieldPath.documentId, isNotEqualTo: uid)).get()
           .then((value) => value.docs)
           .then((value) => value.length);
 
-  Future<int> checkUniqueCid(String? cid) async {
+  Future<int> checkUniqueCid(String? cid, String? uid) async {
     if (cid != null) {
-      return await _withLabUserConvertor(_db.where('cid', isEqualTo: cid)).get()
+      return await _withLabUserConvertor(_db.where('cid', isEqualTo: cid).where(FieldPath.documentId, isNotEqualTo: uid)).get()
           .then((value) => value.docs)
           .then((value) => value.length);
     } else {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
+import 'package:lab_manager/screens/home/profile_settings.dart';
 import 'package:lab_manager/services/auth.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
@@ -24,18 +25,24 @@ class NavigationDrawerWidget extends StatelessWidget {
           buildMenuItem(text: "My Stations",
               icon: Icons.apps,
               onClicked: () => selectedItem(context, 1)),
-          buildMenuItem(text: "My Logs",
+          buildMenuItem(text: "Activity Logs",
               icon: Icons.history_edu,
               onClicked: () => selectedItem(context, 2)),
           const Divider(color: Colors.white, endIndent: 15, indent: 15),
-          buildMenuItem(text: "Profile",
-              icon: Icons.person,
+          buildMenuItem(text: "Messages",
+              icon: Icons.message,
               onClicked: () => selectedItem(context, 3)),
-          const SizedBox(height: 150),
-          TextButton.icon(
-              onPressed: () async => await _authService.signOut(),
-              icon: const Icon(Icons.logout, color: Colors.greenAccent,),
-              label: const Text("Sign Out", style: TextStyle(color: Colors.greenAccent))
+          buildMenuItem(text: "Profile Settings",
+              icon: Icons.settings,
+              onClicked: () => selectedItem(context, 4)),
+          Column(
+            children: [
+              TextButton.icon(
+                onPressed: () async => await _authService.signOut(),
+                icon: const Icon(Icons.logout, color: Colors.greenAccent,),
+                label: const Text("Sign Out", style: TextStyle(color: Colors.greenAccent))
+              ),
+            ]
           )
         ],
       ),
@@ -45,12 +52,14 @@ class NavigationDrawerWidget extends StatelessWidget {
   Widget buildMenuItem({
     required String text,
     required IconData icon,
+    String subtitle = "",
     VoidCallback? onClicked
   }) {
     const white = Colors.white;
     return  ListTile(
       leading: Icon(icon, color: white),
       title: Text(text, style: const TextStyle(color: white)),
+      subtitle: Text(subtitle, style: const TextStyle(color: white)),
       onTap: onClicked,
     );
   }
@@ -73,6 +82,10 @@ class NavigationDrawerWidget extends StatelessWidget {
       case 3:
         // Navigator.of(context).push(
         //     MaterialPageRoute(builder: (context) => const UserProfile()));
+        break;
+      case 4:
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ProfileSettings(labUser: labUser)));
         break;
       default:
     }

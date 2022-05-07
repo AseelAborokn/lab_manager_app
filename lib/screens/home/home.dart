@@ -24,8 +24,7 @@ class Home extends StatelessWidget {
             drawer: NavigationDrawerWidget(labUser: labUser),
             appBar: AppBar(
               // Title
-              title: const Text(
-                  'LabManager', style: TextStyle(color: Colors.teal)),
+              title: const Text('LabManager', style: TextStyle(color: Colors.teal)),
               centerTitle: true,
               // Application Bar Color
               backgroundColor: Colors.grey.shade900,
