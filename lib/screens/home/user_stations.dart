@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_station.dart';
 import 'package:lab_manager/services/firestore/stations_db.dart';
@@ -34,9 +31,6 @@ class _MyStationsState extends State<MyStations> {
             myStations = snapshot.data!;
           }
 
-          print("owner id = $ownerUid");
-          print("snapshot.hasData = ${snapshot.hasData}");
-          print("stations = $myStations");
           return Scaffold(
               backgroundColor: Colors.grey.shade800,
               appBar: AppBar(
@@ -50,7 +44,7 @@ class _MyStationsState extends State<MyStations> {
                   TextButton.icon(
                     onPressed: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => StationUpsertPage(ownerId: ownerUid)));
+                          MaterialPageRoute(builder: (context) => StationUpsertPage(title: "Create New Station",ownerId: ownerUid)));
                     },
                     icon: const Icon(Icons.add, color: Colors.tealAccent, size: 30),
                     label: const Text(""),
@@ -126,7 +120,7 @@ class _MyStationsState extends State<MyStations> {
                               ),
                               onPressed: () {
                                 Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => StationUpsertPage(ownerId: ownerId, station: station)));
+                                    MaterialPageRoute(builder: (context) => StationUpsertPage(title: "Update ${station.name}", ownerId: ownerId, station: station)));
                               },
                               child: const Text("Update")
                           ),
@@ -161,10 +155,12 @@ class StationUpsertPage extends StatefulWidget {
   const StationUpsertPage({
     Key? key,
     required this.ownerId,
+    required this.title,
     this.station
   }) : super(key: key);
 
   final String ownerId;
+  final String title;
   final LabStation? station;
   @override
   State<StationUpsertPage> createState() => _StationUpsertPageState();
@@ -191,8 +187,7 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
       backgroundColor: Colors.grey.shade800,
       appBar: AppBar(
         // Title
-        title: const Text(
-            'Adding New Station', style: TextStyle(color: Colors.teal)),
+        title: Text(widget.title, style: const TextStyle(color: Colors.teal)),
         centerTitle: true,
         // Application Bar Color
         backgroundColor: Colors.grey.shade900,
