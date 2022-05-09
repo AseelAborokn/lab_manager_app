@@ -10,11 +10,12 @@ enum LabStationVisibility {
 }
 
 class LabStation {
-  // Fields
+  // Document Id
   String uid;
-  int stationId;
-  String managerId;
+
+  // Fields
   String name;
+  String ownerId;
   int runTimeInSecs;
   LabStationStatus status;
   LabStationVisibility visibility;
@@ -22,21 +23,19 @@ class LabStation {
   // Constructor
   LabStation({
     required this.uid,
-    required this.stationId,
-    required this.managerId,
-    this.name = "",
+    required this.name,
+    required this.ownerId,
     this.runTimeInSecs = 600,
     this.status = LabStationStatus.unavailable,
     this.visibility = LabStationVisibility.public
   });
 
   // Create a LabStation object from JSON object.
-  LabStation.fromJson(Map<String, dynamic> fields) : this(
-      uid: fields['uid'],
-      stationId: fields['station_id'],
-      managerId: fields['manager_id'],
+  LabStation.fromJson(String uid, Map<String, dynamic> fields) : this(
+      uid: uid,
       name: fields['name'],
-      runTimeInSecs: fields['run_time_in_secs'] as int,
+      ownerId: fields['owner_id'],
+      runTimeInSecs: (fields['run_time_in_secs'] ?? 0) as int,
       status: LabStationStatus.values.firstWhere((element) => element.toString() == 'LabStationStatus.' + fields['status'].toString()),
       visibility: LabStationVisibility.values.firstWhere((element) => element.toString() == 'LabStationVisibility.' + fields['visibility'].toString()),
   );
@@ -45,12 +44,11 @@ class LabStation {
   Map<String, dynamic> toJson() {
     return Map<String, dynamic>.from({
       "uid": uid,
-      "station_id": stationId,
-      "manager_id": managerId,
       "name": name,
+      "owner_id": ownerId,
       "run_time_in_secs": runTimeInSecs,
-      "status": status.toString(),
-      "visibility": visibility.toString(),
+      "status": status.name,
+      "visibility": visibility.name,
     });
   }
 }

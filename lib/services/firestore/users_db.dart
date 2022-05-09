@@ -13,7 +13,7 @@ class UsersCollection {
           toFirestore: (LabUser labUser, _) => labUser.toJson()
       );
 
-  DocumentReference<LabUser> _getDoc(String uid) =>
+  DocumentReference<LabUser> _getDoc(String? uid) =>
     _db.doc(uid).withConverter<LabUser>(
         fromFirestore: (snapshot, _) => LabUser.fromJson(snapshot.id, snapshot.data()!),
         toFirestore: (LabUser labUser, _) => labUser.toJson()
@@ -23,12 +23,13 @@ class UsersCollection {
       await _getDoc(user.uid).set(user);
 
   // Create a new LabUser
-  Future<void> register(LabUser user) async => _upsertUser(user);
+  Future<void> register(LabUser user) => _upsertUser(user);
 
   // Delete a LabUser
+  Future<void> delete(String uid) =>  _getDoc(uid).delete();
 
   // Update a LabUser
-  Future<void> update(LabUser user) async =>  _upsertUser(user);
+  Future<void> update(LabUser user) =>  _upsertUser(user);
 
   // Get a LabUser
   Future<LabUser?> getByUid(String uid) async =>
@@ -59,6 +60,6 @@ class UsersCollection {
       _db.snapshots();
 
   // get the current connected user as LabUser (with each time it is updated!)
-  Stream<LabUser?> getCurrentLabUser(String uid) =>
+  Stream<LabUser?> getCurrentLabUser(String? uid) =>
       _getDoc(uid).snapshots().map((event) => event.data());
 }

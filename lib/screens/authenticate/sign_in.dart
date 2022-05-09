@@ -105,8 +105,9 @@ class _SignInState extends State<SignIn> {
                       TextButton.icon(
                           onPressed: () async {
                             setState(() => loading = true);
-                            RegistrationResult result = await  _authService.signIn(email, password);
+                            RegistrationResult result = await _authService.signIn(email, password);
                             if (result.labUser != null) {
+                              if(!mounted) return;
                               Navigator.of(context).pop();
                             }
                             else {

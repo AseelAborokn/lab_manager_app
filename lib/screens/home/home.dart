@@ -12,10 +12,11 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = Provider.of<User?>(context);
 
+    print("user id = ${user?.uid}");
     return StreamBuilder<LabUser?>(
-      stream: UsersCollection().getCurrentLabUser(user.uid),
+      stream: UsersCollection().getCurrentLabUser(user?.uid),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data != null) {
           LabUser labUser = snapshot.data!;

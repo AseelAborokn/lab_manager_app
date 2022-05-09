@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/screens/home/profile_settings.dart';
+import 'package:lab_manager/screens/home/user_stations.dart';
 import 'package:lab_manager/services/auth.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
@@ -72,8 +73,8 @@ class NavigationDrawerWidget extends StatelessWidget {
         //     MaterialPageRoute(builder: (context) => const Home()));
         break;
       case 1:
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => const UserStations()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => MyStations(labUser: labUser)));
         break;
       case 2:
         // Navigator.of(context).push(

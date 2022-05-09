@@ -5,6 +5,7 @@ import 'package:lab_manager/shared/loading_spinner.dart';
 
 import '../../shared/results/registration_results.dart';
 import '../../shared/utils/functions.dart';
+import '../../shared/widgets/register_text_form_field.dart';
 
 class ProfileSettings extends StatefulWidget {
   const ProfileSettings({Key? key, required this.labUser}) : super(key: key);
@@ -84,7 +85,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
                       child: InkWell(
                         // inkwell color
                         splashColor: Colors.tealAccent,
-                        child: SizedBox(width: 56, height: 56, child: const Icon(Icons.edit, color: Colors.white,)),
+                        child: const SizedBox(width: 56, height: 56, child: Icon(Icons.edit, color: Colors.white,)),
                         onTap: () { widget.toggleView(); },
                       ),
                     ),
@@ -156,78 +157,31 @@ class _ProfileSettingEditState extends State<ProfileSettingEdit> {
                   runSpacing: 10,
                   children: <Widget>[
                     // username
-                    TextFormField(
-                      initialValue: widget.labUser.username,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        labelText: "User Name",
-                        labelStyle: const TextStyle(color: Colors.greenAccent),
-                        hintText: "username",
-                        hintStyle: const TextStyle(color: Colors.white),
-                        suffixIcon: const Icon(Icons.person, color: Colors.greenAccent),
-                        suffixIconColor: Colors.tealAccent,
-                        border: const OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: const BorderSide(
-                                color: Colors.greenAccent,
-                                width: 1
-                            )
-                        ),
-                      ),
-                      onChanged: (val) {
-                        setState(() => username = val);
-                      },
-                      validator: (val) => (val == null || val.isEmpty) ? "Invalid username" : null,
+                    RegisterTextFromField(
+                      initValue: widget.labUser.username,
+                      labelText: "User Name",
+                      hintText: "username",
+                      iconData: Icons.person,
+                      onChanged: (val) => setState(() => username = val),
+                      onValidation: (val) => (val == null || val.isEmpty) ? "Invalid username" : null
                     ),
                     // PhoneNumber
-                    TextFormField(
-                      initialValue: widget.labUser.phoneNumber,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        labelText: "Phone Number",
-                        labelStyle: const TextStyle(color: Colors.greenAccent),
-                        hintText: "Phone Number",
-                        hintStyle: const TextStyle(color: Colors.white),
-                        suffixIcon: const Icon(Icons.phone, color: Colors.greenAccent),
-                        border: const OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: const BorderSide(
-                                color: Colors.greenAccent,
-                                width: 1
-                            )
-                        ),
-                      ),
-                      onChanged: (val) {
-                        setState(() => phoneNumber = val);
-                      },
-                      validator: (val) => (val == null || !validPhoneNumber(phoneNumber ?? widget.labUser.phoneNumber)) ? "Invalid Phone Number" : null,
+                    RegisterTextFromField(
+                      initValue: widget.labUser.phoneNumber,
+                      labelText: "Phone Number",
+                      hintText: "phone number",
+                      iconData: Icons.phone,
+                      onChanged: (val) => setState(() => phoneNumber = val),
+                      onValidation: (val) => (val == null || !validPhoneNumber(phoneNumber ?? widget.labUser.phoneNumber)) ? "Invalid Phone Number" : null
                     ),
                     // CID
-                    TextFormField(
-                      initialValue: widget.labUser.cid,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
+                    RegisterTextFromField(
+                        initValue: widget.labUser.cid,
                         labelText: "Card Id",
-                        labelStyle: const TextStyle(color: Colors.greenAccent),
-                        hintText: "Card Id",
-                        hintStyle: const TextStyle(color: Colors.white),
-                        suffixIcon: const Icon(Icons.credit_card, color: Colors.greenAccent),
-                        suffixIconColor: Colors.tealAccent,
-                        border: const OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: const BorderSide(
-                                color: Colors.greenAccent,
-                                width: 1
-                            )
-                        ),
-                      ),
-                      onChanged: (val) {
-                        setState(() => cid = val);
-                      },
-                      validator: (val) => (val == null || !validCid(cid)) ? "Invalid Card Id" : null,
+                        hintText: "card id",
+                        iconData: Icons.credit_card,
+                        onChanged: (val) => setState(() => cid = val),
+                        onValidation: (val) => (val == null || !validCid(cid)) ? "Invalid Card Id" : null
                     ),
                   ],
                 ),
@@ -269,11 +223,6 @@ class _ProfileSettingEditState extends State<ProfileSettingEdit> {
                             onTap: () async {
                               setState(() => loading = true);
                               if (_formKey.currentState!.validate()) {
-                                print(widget.labUser.uid);
-                                print(widget.labUser.email);
-                                print(username ?? widget.labUser.username);
-                                print(cid ?? widget.labUser.cid);
-                                print(phoneNumber ?? widget.labUser.phoneNumber);
                                 RegistrationResult result = await AuthService().update(
                                     widget.labUser.uid,
                                     widget.labUser.email,
