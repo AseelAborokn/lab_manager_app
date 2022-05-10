@@ -100,7 +100,7 @@ class _MyStationsState extends State<MyStations> {
                     children: [
                       _createInfoLine("Id :", station.uid),
                       _createInfoLine("Owner Id :", station.ownerId),
-                      _createInfoLine("Visibility :", station.visibility.name),
+                      _createInfoLine("Accessibility :", station.accessibility.name),
                       _createInfoLine("Run Time Duration In Secs:", station.runTimeInSecs.toString()),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -174,9 +174,9 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
   String? stationName;
   String? stationId;
   LabStationStatus status = LabStationStatus.unavailable;
-  LabStationVisibility visibility = LabStationVisibility.public;
+  LabStationAccessibility accessibility = LabStationAccessibility.public;
   bool statusUpdated = false;
-  bool visibilityUpdated = false;
+  bool accessibilityUpdated = false;
   int runTimeInSecs = 600;
 
   String errorMessage = "";
@@ -254,14 +254,14 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
                           },
                           LabStationStatus.values.map((e) => e.name).toList()
                         ),
-                        // LabStationVisibility
+                        // LabStationAccessibility
                         _getDropDownMenu(
-                            (!visibilityUpdated) ? widget.station?.visibility.name ?? visibility.name : visibility.name,
+                            (!accessibilityUpdated) ? widget.station?.accessibility.name ?? accessibility.name : accessibility.name,
                           (newValue) {
-                            setState(() => visibility = LabStationVisibility.values.firstWhere((element) => element.toString() == 'LabStationVisibility.' + (newValue ?? LabStationVisibility.public.name)));
-                            setState(() => visibilityUpdated = true);
+                            setState(() => accessibility = LabStationAccessibility.values.firstWhere((element) => element.toString() == 'LabStationAccessibility.' + (newValue ?? LabStationAccessibility.public.name)));
+                            setState(() => accessibilityUpdated = true);
                           },
-                          LabStationVisibility.values.map((e) => e.name).toList()
+                          LabStationAccessibility.values.map((e) => e.name).toList()
                         ),
                       ],
                     ),
@@ -291,12 +291,12 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
                             ownerId: widget.ownerId,
                             runTimeInSecs: runTimeInSecs,
                             status: status,
-                            visibility: visibility
+                            accessibility: accessibility
                           )
                         ));
 
                         final LabStation? labStation = await creating.then((value) =>
-                          _stationsCollection.getLabStationById(stationId!)
+                          _stationsCollection.getLabStationById(stationId ?? widget.station!.uid)
                         );
 
                         if (labStation != null) {

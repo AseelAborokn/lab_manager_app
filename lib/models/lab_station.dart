@@ -4,9 +4,9 @@ enum LabStationStatus {
   unavailable
 }
 
-enum LabStationVisibility {
+enum LabStationAccessibility {
   public,
-  private
+  restricted
 }
 
 class LabStation {
@@ -18,7 +18,7 @@ class LabStation {
   String ownerId;
   int runTimeInSecs;
   LabStationStatus status;
-  LabStationVisibility visibility;
+  LabStationAccessibility accessibility;
 
   // Constructor
   LabStation({
@@ -27,7 +27,7 @@ class LabStation {
     required this.ownerId,
     this.runTimeInSecs = 600,
     this.status = LabStationStatus.unavailable,
-    this.visibility = LabStationVisibility.public
+    this.accessibility = LabStationAccessibility.public
   });
 
   // Create a LabStation object from JSON object.
@@ -37,7 +37,7 @@ class LabStation {
       ownerId: fields['owner_id'],
       runTimeInSecs: (fields['run_time_in_secs'] ?? 0) as int,
       status: LabStationStatus.values.firstWhere((element) => element.toString() == 'LabStationStatus.' + fields['status'].toString()),
-      visibility: LabStationVisibility.values.firstWhere((element) => element.toString() == 'LabStationVisibility.' + fields['visibility'].toString()),
+      accessibility: LabStationAccessibility.values.firstWhere((element) => element.toString() == 'LabStationAccessibility.' + fields['accessibility'].toString()),
   );
 
   // Create JSON object from LabStation object.
@@ -48,7 +48,7 @@ class LabStation {
       "owner_id": ownerId,
       "run_time_in_secs": runTimeInSecs,
       "status": status.name,
-      "visibility": visibility.name,
+      "accessibility": accessibility.name,
     });
   }
 }
