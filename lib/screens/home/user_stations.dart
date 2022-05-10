@@ -175,6 +175,8 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
   String? stationId;
   LabStationStatus status = LabStationStatus.unavailable;
   LabStationVisibility visibility = LabStationVisibility.public;
+  bool statusUpdated = false;
+  bool visibilityUpdated = false;
   int runTimeInSecs = 600;
 
   String errorMessage = "";
@@ -245,14 +247,20 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
                       children: [
                         // LabStationStatus
                         _getDropDownMenu(
-                          widget.station?.status.name ?? status.name,
-                          (newValue) => setState(() => status = LabStationStatus.values.firstWhere((element) => element.toString() == 'LabStationStatus.' + (newValue ?? LabStationStatus.unavailable.name))),
+                            (!statusUpdated) ? widget.station?.status.name ?? status.name : status.name,
+                          (newValue) {
+                            setState(() => status = LabStationStatus.values.firstWhere((element) => element.toString() == 'LabStationStatus.' + (newValue ?? LabStationStatus.unavailable.name)));
+                            setState(() => statusUpdated = true);
+                          },
                           LabStationStatus.values.map((e) => e.name).toList()
                         ),
                         // LabStationVisibility
                         _getDropDownMenu(
-                            widget.station?.visibility.name ??visibility.name,
-                          (newValue) => setState(() => visibility = LabStationVisibility.values.firstWhere((element) => element.toString() == 'LabStationVisibility.' + (newValue ?? LabStationVisibility.public.name))),
+                            (!visibilityUpdated) ? widget.station?.visibility.name ?? visibility.name : visibility.name,
+                          (newValue) {
+                            setState(() => visibility = LabStationVisibility.values.firstWhere((element) => element.toString() == 'LabStationVisibility.' + (newValue ?? LabStationVisibility.public.name)));
+                            setState(() => visibilityUpdated = true);
+                          },
                           LabStationVisibility.values.map((e) => e.name).toList()
                         ),
                       ],
