@@ -24,7 +24,7 @@ class _MyStationsState extends State<MyStations> {
     final String ownerUid = widget.labUser.uid;
 
     return StreamBuilder<List<LabStation>>(
-        stream: widget._stationsCollection.getAllStations(),
+        stream: widget._stationsCollection.getStationsByOwnerId(ownerUid),
         builder: (context, AsyncSnapshot<List<LabStation>> snapshot) {
           List<LabStation> myStations = <LabStation>[];
           if (snapshot.hasData && snapshot.data != null) {
@@ -272,6 +272,7 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
                     formKey: _formKey,
                     submit: () async {
                       try {
+                        setState(() => loading = true);
                         // Checking if the user is updating a station id
                         Future<void> deleting = Future<void>.value();
                         if (stationId != null && widget.station != null && stationId != widget.station!.uid) {
@@ -310,8 +311,10 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
                         setState(() {
                           errorFound = true;
                           errorMessage = e.toString();
+                          loading = false;
                         });
                       }
+                      setState(() => loading = false);
                     }
                 ),
                 // Error Message

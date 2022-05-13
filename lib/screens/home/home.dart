@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
+import 'package:lab_manager/screens/home/permissions.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
 
-    print("user id = ${user?.uid}");
     return StreamBuilder<LabUser?>(
       stream: UsersCollection().getCurrentLabUser(user?.uid),
       builder: (context, snapshot) {
@@ -43,7 +43,26 @@ class Home extends StatelessWidget {
               // Profile Icon
               actions: const <Widget>[],
             ),
-            body: Text("Welcome ${labUser.username}"),
+            body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.grey.shade900,
+                      elevation: 2.0,
+                      shadowColor: Colors.teal,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Permissions(labUser: labUser)));
+                    },
+                    child: const Text("Request Permissions To Access Stations")
+                  ),
+                ],
+              ),
+            )
           );
         } else {
           return const LoadingSpinner();
