@@ -62,4 +62,11 @@ class UsersCollection {
   // get the current connected user as LabUser (with each time it is updated!)
   Stream<LabUser?> getCurrentLabUser(String? uid) =>
       _getDoc(uid).snapshots().map((event) => event.data());
+
+  Stream<List<LabUser>> getAllLabUser() =>
+      _db.withConverter<LabUser>(
+          fromFirestore: (snapshot, _) =>
+              LabUser.fromJson(snapshot.id, snapshot.data()!),
+          toFirestore: (LabUser labStation, _) => labStation.toJson()
+      ).snapshots().map((event) => event.docs.map((e) => e.data()).toList());
 }

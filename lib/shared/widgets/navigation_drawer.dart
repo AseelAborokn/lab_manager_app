@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
+import 'package:lab_manager/screens/home/permission_requests.dart';
 import 'package:lab_manager/screens/home/profile_settings.dart';
 import 'package:lab_manager/screens/home/user_stations.dart';
 import 'package:lab_manager/services/auth.dart';
@@ -30,8 +31,8 @@ class NavigationDrawerWidget extends StatelessWidget {
               icon: Icons.history_edu,
               onClicked: () => selectedItem(context, 2)),
           const Divider(color: Colors.white, endIndent: 15, indent: 15),
-          buildMenuItem(text: "Messages",
-              icon: Icons.message,
+          buildMenuItem(text: "Pending Requests",
+              icon: Icons.pending_actions_sharp,
               onClicked: () => selectedItem(context, 3)),
           buildMenuItem(text: "Profile Settings",
               icon: Icons.settings,
@@ -81,8 +82,8 @@ class NavigationDrawerWidget extends StatelessWidget {
         //     MaterialPageRoute(builder: (context) => const UserLogs()));
         break;
       case 3:
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => const UserProfile()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => PermissionRequestsManager(labUser: labUser)));
         break;
       case 4:
         Navigator.of(context).push(

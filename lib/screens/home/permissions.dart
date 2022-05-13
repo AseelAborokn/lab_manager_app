@@ -65,11 +65,11 @@ class _PermissionsState extends State<Permissions> {
   @override
   Widget build(BuildContext context) {
     final String userId = widget.labUser.uid;
-    List<LabStation> stations = <LabStation>[];
 
     return StreamBuilder<List<LabStation>>(
         stream: widget._stationsCollection.getAllStations(),
         builder: (context, AsyncSnapshot<List<LabStation>> stationsSnapshot) {
+          List<LabStation> stations = <LabStation>[];
           if (stationsSnapshot.hasData && stationsSnapshot.data != null) {
             stations = stationsSnapshot.data!;
           }
