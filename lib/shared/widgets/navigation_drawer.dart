@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
-import 'package:lab_manager/screens/home/permission_requests.dart';
+import 'package:lab_manager/screens/home/pending_permission_requests.dart';
 import 'package:lab_manager/screens/home/profile_settings.dart';
 import 'package:lab_manager/screens/home/user_stations.dart';
 import 'package:lab_manager/services/auth.dart';
@@ -83,7 +83,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 3:
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => PermissionRequestsManager(labUser: labUser)));
+            MaterialPageRoute(builder: (context) => PendingPermissionRequestsManager(labUser: labUser)));
         break;
       case 4:
         Navigator.of(context).push(
