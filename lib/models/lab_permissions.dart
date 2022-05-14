@@ -37,7 +37,6 @@ class AccessPermissions {
   // Create JSON object from Admission object.
   Map<String, dynamic> toJson() {
     return Map<String, dynamic>.from({
-      "uid": uid,
       "station_id": stationId,
       "owner_id": ownerId,
       "user_id": userId,

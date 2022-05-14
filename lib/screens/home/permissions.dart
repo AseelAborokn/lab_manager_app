@@ -146,6 +146,7 @@ class _PermissionsState extends State<Permissions> {
                 subtitle: Text(status.name, style: const TextStyle(
                     color: Colors.lightGreenAccent, fontSize: 15)),
                 iconColor: Colors.lightGreenAccent,
+                collapsedIconColor: Colors.greenAccent,
                 children: [
                   RequestButtonTile(labUser: labUser, labStation: station)
                 ]
@@ -218,7 +219,7 @@ class _RequestButtonTileState extends State<RequestButtonTile> {
                     primary: Colors.green.shade900
                 ),
                 onPressed: () {
-                  widget._permissionsCollection.create(stationId, ownerId, userId, cid);
+                  widget._permissionsCollection.create(stationId, ownerId, userId, cid, AccessPermissionStatus.requested);
                 },
                 onLongPress: null,
                 child: const Text("Request Access")

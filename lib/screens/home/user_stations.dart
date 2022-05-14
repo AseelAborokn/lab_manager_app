@@ -95,6 +95,7 @@ class _MyStationsState extends State<MyStations> {
                 subtitle: Text(station.status.name, style: const TextStyle(
                     color: Colors.lightGreenAccent, fontSize: 15)),
                 iconColor: Colors.lightGreenAccent,
+                collapsedIconColor: Colors.greenAccent,
                 children: [
                   Column(
                     children: [

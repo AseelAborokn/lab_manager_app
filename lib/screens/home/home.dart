@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/screens/home/permissions.dart';
+import 'package:lab_manager/screens/home/permissions_manager.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,19 @@ class Home extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Permissions(labUser: labUser)));
                     },
                     child: const Text("Request Permissions To Access Stations")
+                  ),
+                  const Divider(),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey.shade900,
+                        elevation: 2.0,
+                        shadowColor: Colors.teal,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => PermissionsManager(labUser: labUser)));
+                      },
+                      child: const Text("Manage Permissions To Access Stations")
                   ),
                 ],
               ),

@@ -46,13 +46,14 @@ class PermissionsCollection {
       String stationId,
       String ownerId,
       String userId,
-      String cid) =>
+      String cid,
+      AccessPermissionStatus status) =>
     _db.add({
       "station_id": stationId,
       "owner_id": ownerId,
       "user_id": userId,
       "cid": cid,
-      "permission_status": AccessPermissionStatus.requested.name
+      "permission_status": status.name
     });
   // Delete a AccessPermissions
   Future<void> delete(String uid) => _getDoc(uid).delete();
@@ -64,5 +65,5 @@ class PermissionsCollection {
           .where('user_id', isEqualTo: userId)
           .where('station_id', isEqualTo: stationId)
           .where('owner_id', isEqualTo: ownerId)
-      ).get().then((permission) => permission.docs.first.data());
+      ).get().then((permission) => (permission.docs.isNotEmpty) ? permission.docs.first.data() : null);
 }

@@ -28,7 +28,7 @@ class _PermissionRequestsManagerState extends State<PermissionRequestsManager> {
         stream: widget._permissionsCollection.getAccessPermissionsByOwnerId(ownerId),
         builder: (context, AsyncSnapshot<List<AccessPermissions>> pendingReqSnapshots) {
           List<AccessPermissions> pendingRequests = [];
-          if (!pendingReqSnapshots.hasData || pendingReqSnapshots.data != null) {
+          if (!pendingReqSnapshots.hasData && pendingReqSnapshots.data != null) {
             pendingRequests = pendingReqSnapshots.data!.where((req) => req.permissionStatus == AccessPermissionStatus.requested).toList();
           }
 
@@ -44,8 +44,7 @@ class _PermissionRequestsManagerState extends State<PermissionRequestsManager> {
                     stream: widget._stationsCollection.getStationsByOwnerId(ownerId),
                     builder: (context, AsyncSnapshot<List<LabStation>> stationsSnapshot) {
                       List<LabStation> stations = [];
-                      if (stationsSnapshot.hasData &&
-                          stationsSnapshot.data != null) {
+                      if (stationsSnapshot.hasData && stationsSnapshot.data != null) {
                         stations = stationsSnapshot.data!;
                       }
 
@@ -62,7 +61,7 @@ class _PermissionRequestsManagerState extends State<PermissionRequestsManager> {
                           backgroundColor: Colors.grey.shade800,
                           appBar: AppBar(
                             // Title
-                            title: const Text('Permissions Manager', style: TextStyle(color: Colors.teal)),
+                            title: const Text('Pending Requests', style: TextStyle(color: Colors.teal)),
                             centerTitle: true,
                             // Application Bar Color
                             backgroundColor: Colors.grey.shade900,
@@ -70,7 +69,6 @@ class _PermissionRequestsManagerState extends State<PermissionRequestsManager> {
                               //TODO("Add Search Bar")
                             ],
                           ),
-                          // appBar: SearchBar(title: 'Request Permissions', defaultSearchContent: 'Enter station name...'),
                           body: (pendingRequests.isEmpty)
                               ? Center(
                                 child: TextButton.icon(
