@@ -141,6 +141,7 @@ class _ProfileSettingEditState extends State<ProfileSettingEdit> {
         // Application Bar Color
         backgroundColor: Colors.grey.shade900,
       ),
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
