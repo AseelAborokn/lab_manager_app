@@ -36,6 +36,10 @@ class _ActivityLogsState extends State<ActivityLogs> {
   Timestamp? filteredStartedAt;
   Timestamp? filteredFinishedAt;
 
+  bool loading = false;
+  bool errorFound = false;
+  String errorMessage = "";
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<UsageHistory>>(
@@ -86,7 +90,13 @@ class _ActivityLogsState extends State<ActivityLogs> {
                       // Filter Panel
                       _getFilterPanel(joinedLists, users),
                       // Table Of Usages Card
-                      _getHistoryLogs(joinedLists)
+                      _getHistoryLogs(joinedLists),
+                      // Error Message
+                      Center(
+                        child: (errorFound)
+                            ? Text(errorMessage, style: const TextStyle(fontSize: 15, color: Colors.deepOrange),)
+                            : const Text(""),
+                      ),
                     ],
                   ),
                 )
@@ -247,7 +257,7 @@ class _ActivityLogsState extends State<ActivityLogs> {
         primary: Colors.blueGrey
       ),
       onPressed: () async {
-        //TODO("Add Spinner")
+        setState(() => loading = true);
         DateTime currentDateTime = DateTime.now();
         DateTime? pickedDate = await showDatePicker(
             context: context,
@@ -258,11 +268,17 @@ class _ActivityLogsState extends State<ActivityLogs> {
 
         if (pickedDate != null) {
           onSuccess(pickedDate.millisecondsSinceEpoch);
+          setState(() {
+            errorFound = false;
+            errorMessage = "";
+          });
         } else {
-          //TODO("Add error")
+          setState(() {
+            errorFound = true;
+            errorMessage = "Failed To Select Date!, Please Retry Again";
+          });
         }
-
-        //TODO("Add Spinner")
+        setState(() => loading = false);
       },
     );
   }
@@ -271,7 +287,7 @@ class _ActivityLogsState extends State<ActivityLogs> {
   Card _getHistoryLogs(List<Tuple2<UsageHistory, LabUser>> data) {
     return Card(
       color: Colors.grey.shade900,
-      margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+      margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
       elevation: 2.0,
       shadowColor: Colors.greenAccent,
       shape: RoundedRectangleBorder(
