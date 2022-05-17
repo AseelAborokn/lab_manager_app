@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lab_manager/models/lab_station.dart';
 import 'package:lab_manager/models/usage_history.dart';
 import 'package:lab_manager/services/firestore/usage_history_db.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
@@ -14,11 +15,13 @@ class ActivityLogs extends StatefulWidget {
     required this.labUser,
     required this.title,
     required this.showMyUsagesOnly,
+    this.myStations
   }) : super(key: key);
 
   final LabUser labUser;
   final String title;
   final bool showMyUsagesOnly;
+  final List<LabStation>? myStations;
   @override
   State<ActivityLogs> createState() => _ActivityLogsState();
 }
@@ -46,8 +49,9 @@ class _ActivityLogsState extends State<ActivityLogs> {
         // Filter my usages only if needed - else take all usages to my stations
         if (widget.showMyUsagesOnly) {
           usages = usages.where((usage) => usage.userId == widget.labUser.uid).toList();
-        } else {
-          // TODO("Filter my stations only!")
+        } else if (widget.myStations != null) {
+          List<String> myStationIds = widget.myStations!.map((station) => station.uid).toSet().toList();
+          usages = usages.where((usage) => myStationIds.contains(usage.stationId)).toList();
         }
 
         return StreamBuilder<List<LabUser>>(
@@ -278,7 +282,12 @@ class _ActivityLogsState extends State<ActivityLogs> {
         title: const Text("History Logs", style: TextStyle(color: Colors.greenAccent, fontSize: 18)),
         iconColor: Colors.lightGreenAccent,
         collapsedIconColor: Colors.greenAccent,
-        children: [ _getTableContent(data)]
+        children: [ 
+          Container(
+            margin: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+              child: _getTableContent(data)
+          )
+        ]
       ),
     );
   }
@@ -287,11 +296,8 @@ class _ActivityLogsState extends State<ActivityLogs> {
     if (data.isEmpty) {
       return Center(
           child: TextButton.icon(onPressed: null,
-              icon: const Icon(
-                  Icons.free_breakfast_rounded, color: Colors.brown,
-                  size: 50),
-              label: const Text("No Data, Break Time!", style: TextStyle(
-                  color: Colors.lightGreen, fontSize: 20))
+              icon: const Icon(Icons.free_breakfast_rounded, color: Colors.brown, size: 50),
+              label: const Text("No Data, Break Time!", style: TextStyle(color: Colors.lightGreen, fontSize: 20))
           )
       );
     }
@@ -300,7 +306,7 @@ class _ActivityLogsState extends State<ActivityLogs> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: DataTable(
-        showBottomBorder: true,
+        showBottomBorder: false,
         headingRowHeight: 50,
         headingTextStyle: const TextStyle(color: Colors.lightGreenAccent),
         headingRowColor: MaterialStateProperty.resolveWith((s) => Colors.blueGrey.shade900),

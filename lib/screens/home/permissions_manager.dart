@@ -58,7 +58,7 @@ class _PermissionsManagerState extends State<PermissionsManager> {
                       return Scaffold(
                         backgroundColor: Colors.grey.shade800,
                         appBar: AppBar(
-                          title: const Text('Pending Requests', style: TextStyle(color: Colors.teal)),
+                          title: const Text('Manage You Station Permissions', style: TextStyle(color: Colors.teal)),
                           centerTitle: true,
                           backgroundColor: Colors.grey.shade900,
                           actions: const [
@@ -388,48 +388,52 @@ class _TableCardState extends State<TableCard> {
                   label: const Text("No Data, Break Time!", style: TextStyle(
                       color: Colors.lightGreen, fontSize: 20)),
                 ))
-                : SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                  showBottomBorder: true,
-                  headingRowHeight: 50,
-                  headingTextStyle: const TextStyle(color: Colors.lightGreenAccent),
-                  headingRowColor: MaterialStateProperty.resolveWith((s) => Colors.blueGrey.shade900),
-                  columns: List<DataColumn>.generate(
-                      columns.length, (colIndex) =>
-                      DataColumn(label: Center(child: Text(
-                        columns[colIndex], textAlign: TextAlign.center,)))
-                  ),
-                  rows: List<DataRow>.generate(
-                      widget.data.length, (index) =>
-                      DataRow(
-                        color: MaterialStateProperty.resolveWith((s) =>
-                        (index % 2 == 0)
-                            ? Colors.grey.shade200
-                            : Colors.grey.shade400),
-                        cells: <DataCell>[
-                          DataCell(
-                              Center(child: Text(widget.data[index].item3,
-                                  textAlign: TextAlign.center))
-                          ),
-                          DataCell(
-                              Center(child: Text(widget.data[index].item2,
-                                textAlign: TextAlign.center,))
-                          ),
-                          DataCell(
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                : Container(
+                  margin: const EdgeInsets.fromLTRB(12, 0, 12, 0),
 
-                                  _getButton(index)
-                                ],
-                              )
-                          )
-                        ]
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                    showBottomBorder: true,
+                    headingRowHeight: 50,
+                    headingTextStyle: const TextStyle(color: Colors.lightGreenAccent),
+                    headingRowColor: MaterialStateProperty.resolveWith((s) => Colors.blueGrey.shade900),
+                    columns: List<DataColumn>.generate(
+                        columns.length, (colIndex) =>
+                        DataColumn(label: Center(child: Text(
+                          columns[colIndex], textAlign: TextAlign.center,)))
+                    ),
+                    rows: List<DataRow>.generate(
+                        widget.data.length, (index) =>
+                        DataRow(
+                          color: MaterialStateProperty.resolveWith((s) =>
+                          (index % 2 == 0)
+                              ? Colors.grey.shade200
+                              : Colors.grey.shade400),
+                          cells: <DataCell>[
+                            DataCell(
+                                Center(child: Text(widget.data[index].item3,
+                                    textAlign: TextAlign.center))
+                            ),
+                            DataCell(
+                                Center(child: Text(widget.data[index].item2,
+                                  textAlign: TextAlign.center,))
+                            ),
+                            DataCell(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+
+                                    _getButton(index)
+                                  ],
+                                )
+                            )
+                          ]
+                        )
                       )
-                  )
-            ),
+                    ),
+                  ),
                 ),
             Center(
               child: (errorFound)

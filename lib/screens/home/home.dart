@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lab_manager/models/lab_station.dart';
 import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/screens/home/permissions.dart';
 import 'package:lab_manager/screens/home/permissions_manager.dart';
+import 'package:lab_manager/services/firestore/stations_db.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:lab_manager/shared/widgets/activity_logs.dart';
@@ -16,6 +18,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
+    final StationsCollection _stationsCollection = StationsCollection();
 
     return StreamBuilder<LabUser?>(
       stream: UsersCollection().getCurrentLabUser(user?.uid),
@@ -84,7 +87,15 @@ class Home extends StatelessWidget {
                       ),
                       onPressed: () {
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => ActivityLogs(labUser: labUser, title: "My Stations Usages", showMyUsagesOnly: false)));
+                            MaterialPageRoute(builder: (context) => StreamBuilder<List<LabStation>>(
+                              stream: _stationsCollection.getStationsByOwnerId(labUser.uid),
+                              builder: (context, AsyncSnapshot<List<LabStation>> stationsSnapShot) {
+                                if (stationsSnapShot.hasData ) {
+                                  return ActivityLogs(labUser: labUser, title: "My Stations Activity logs", showMyUsagesOnly: false, myStations: stationsSnapShot.data);
+                                }
+                                return ActivityLogs(labUser: labUser, title: "My Stations Activity logs", showMyUsagesOnly: false);
+                              }
+                            )));
                       },
                       child: const Text("Check My Stations Usages History")
                   ),

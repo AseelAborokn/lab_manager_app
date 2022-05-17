@@ -16,6 +16,6 @@ class MyActivityLogs extends StatefulWidget {
 class _MyActivityLogsState extends State<MyActivityLogs> {
   @override
   Widget build(BuildContext context) {
-    return ActivityLogs(labUser: widget.labUser, title: "My Activities" ,showMyUsagesOnly: false);
+    return ActivityLogs(labUser: widget.labUser, title: "My Activities" ,showMyUsagesOnly: true);
   }
 }
