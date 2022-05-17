@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_user.dart';
+import 'package:lab_manager/screens/home/my_activity_logs.dart';
 import 'package:lab_manager/screens/home/pending_permission_requests.dart';
 import 'package:lab_manager/screens/home/profile_settings.dart';
 import 'package:lab_manager/screens/home/user_stations.dart';
@@ -27,7 +28,7 @@ class NavigationDrawerWidget extends StatelessWidget {
           buildMenuItem(text: "My Stations",
               icon: Icons.apps,
               onClicked: () => selectedItem(context, 1)),
-          buildMenuItem(text: "Activity Logs",
+          buildMenuItem(text: "My Activity Logs",
               icon: Icons.history_edu,
               onClicked: () => selectedItem(context, 2)),
           const Divider(color: Colors.white, endIndent: 15, indent: 15),
@@ -78,8 +79,8 @@ class NavigationDrawerWidget extends StatelessWidget {
             MaterialPageRoute(builder: (context) => MyStations(labUser: labUser)));
         break;
       case 2:
-        // Navigator.of(context).push(
-        //     MaterialPageRoute(builder: (context) => const UserLogs()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => MyActivityLogs(labUser: labUser)));
         break;
       case 3:
         Navigator.of(context).push(

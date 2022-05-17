@@ -43,7 +43,6 @@ class LabStation {
   // Create JSON object from LabStation object.
   Map<String, dynamic> toJson() {
     return Map<String, dynamic>.from({
-      "uid": uid,
       "name": name,
       "owner_id": ownerId,
       "run_time_in_secs": runTimeInSecs,

@@ -5,6 +5,7 @@ import 'package:lab_manager/screens/home/permissions.dart';
 import 'package:lab_manager/screens/home/permissions_manager.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
+import 'package:lab_manager/shared/widgets/activity_logs.dart';
 import 'package:provider/provider.dart';
 
 import '../../shared/widgets/navigation_drawer.dart';
@@ -73,6 +74,19 @@ class Home extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => PermissionsManager(labUser: labUser)));
                       },
                       child: const Text("Manage Permissions To Access Stations")
+                  ),
+                  const Divider(),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey.shade900,
+                        elevation: 2.0,
+                        shadowColor: Colors.teal,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => ActivityLogs(labUser: labUser, title: "My Stations Usages", showMyUsagesOnly: false)));
+                      },
+                      child: const Text("Check My Stations Usages History")
                   ),
                 ],
               ),

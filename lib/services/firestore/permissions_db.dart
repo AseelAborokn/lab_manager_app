@@ -38,9 +38,9 @@ class PermissionsCollection {
           toFirestore: (AccessPermissions accessPermissions, _) => accessPermissions.toJson()
       ).snapshots().map((event) => event.docs.map((e) => e.data()).toList());
 
-
   // Update AccessPermissions
   Future<void> update(AccessPermissions accessPermissions) => _upsertStation(accessPermissions);
+
   // Create AccessPermissions
   Future<void> create(
       String stationId,
@@ -55,6 +55,7 @@ class PermissionsCollection {
       "cid": cid,
       "permission_status": status.name
     });
+
   // Delete a AccessPermissions
   Future<void> delete(String uid) => _getDoc(uid).delete();
   // Get a LabStation
