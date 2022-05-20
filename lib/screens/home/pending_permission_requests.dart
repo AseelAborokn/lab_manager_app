@@ -77,7 +77,7 @@ class _PendingPermissionRequestsManagerState extends State<PendingPermissionRequ
                             ],
                           ),
                           body: Container(
-                            decoration: BackGroundImage(),
+                            decoration: backGroundImage(),
                             child: (pendingRequests.isEmpty)
                                 ? Center(
                                   child: TextButton.icon(

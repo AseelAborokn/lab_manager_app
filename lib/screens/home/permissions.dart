@@ -98,7 +98,7 @@ class _PermissionsState extends State<Permissions> {
                   ),
                   // appBar: SearchBar(title: 'Request Permissions', defaultSearchContent: 'Enter station name...'),
                   body: Container(
-                    decoration: BackGroundImage(),
+                    decoration: backGroundImage(),
                     child: Scrollbar(
                       child: ListView(
                         children: _accessPermissionCardsFrom(_joinLists(stations, permissions, userId), widget.labUser),

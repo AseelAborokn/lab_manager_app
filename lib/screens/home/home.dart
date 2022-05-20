@@ -50,7 +50,7 @@ class Home extends StatelessWidget {
               actions: const <Widget>[],
             ),
             body: Container(
-              decoration:  BackGroundImage(),
+              decoration:  backGroundImage(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,

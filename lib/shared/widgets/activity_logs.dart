@@ -86,7 +86,7 @@ class _ActivityLogsState extends State<ActivityLogs> {
                 ),
                 // appBar: SearchBar(title: 'Request Permissions', defaultSearchContent: 'Enter station name...'),
                 body: Container(
-                  decoration: BackGroundImage(),
+                  decoration: backGroundImage(),
                   child: Scrollbar(
                     child: ListView(
                       children: [

@@ -65,7 +65,7 @@ class _PermissionsManagerState extends State<PermissionsManager> {
                         ),
                           resizeToAvoidBottomInset: false,
                           body: Container(
-                          decoration: BackGroundImage(),
+                          decoration: backGroundImage(),
                           child: (stations.isEmpty)
                             ? Center(
                               child: TextButton.icon(

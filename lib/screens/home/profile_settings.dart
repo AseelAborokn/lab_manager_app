@@ -55,7 +55,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
         backgroundColor: Colors.grey.shade900,
       ),
       body: Container(
-        decoration: BackGroundImage(),
+        decoration: backGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           child: Card(
@@ -153,7 +153,7 @@ class _ProfileSettingEditState extends State<ProfileSettingEdit> {
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: BackGroundImage(),
+        decoration: backGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           key: _formKey,

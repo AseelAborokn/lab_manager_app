@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
       ),
       resizeToAvoidBottomInset: false ,
       body: Container(
-        decoration: BackGroundImage(),
+        decoration: backGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           child: Card(

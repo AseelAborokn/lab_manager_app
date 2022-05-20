@@ -53,7 +53,7 @@ class _MyStationsState extends State<MyStations> {
                 ],
               ),
               body: Container(
-                decoration: BackGroundImage(),
+                decoration: backGroundImage(),
                 child: ListView(
                   children: _stationsLabCardsFrom(myStations, ownerUid),
                 ),
@@ -195,7 +195,7 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: BackGroundImage(),
+        decoration: backGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           key: _formKey,
