@@ -8,6 +8,7 @@ import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../services/firestore/permissions_db.dart';
+import '../../shared/widgets/background_image.dart';
 
 class PendingPermissionRequestsManager extends StatefulWidget {
   PendingPermissionRequestsManager({Key? key, required this.labUser}) : super(key: key);
@@ -76,12 +77,7 @@ class _PendingPermissionRequestsManagerState extends State<PendingPermissionRequ
                             ],
                           ),
                           body: Container(
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                            decoration: BackGroundImage(),
                             child: (pendingRequests.isEmpty)
                                 ? Center(
                                   child: TextButton.icon(

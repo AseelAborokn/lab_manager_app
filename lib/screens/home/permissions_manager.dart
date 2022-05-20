@@ -8,6 +8,7 @@ import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../models/lab_user.dart';
+import '../../shared/widgets/background_image.dart';
 
 class PermissionsManager extends StatefulWidget {
   PermissionsManager({Key? key, required this.labUser}) : super(key: key);
@@ -64,12 +65,7 @@ class _PermissionsManagerState extends State<PermissionsManager> {
                         ),
                           resizeToAvoidBottomInset: false,
                           body: Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                          decoration: BackGroundImage(),
                           child: (stations.isEmpty)
                             ? Center(
                               child: TextButton.icon(

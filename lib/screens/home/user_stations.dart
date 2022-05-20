@@ -6,6 +6,7 @@ import 'package:lab_manager/shared/widgets/submit_form_buttons.dart';
 
 import '../../models/lab_user.dart';
 import '../../shared/loading_spinner.dart';
+import '../../shared/widgets/background_image.dart';
 
 class MyStations extends StatefulWidget {
   MyStations({Key? key, required this.labUser}) : super(key: key);
@@ -52,12 +53,7 @@ class _MyStationsState extends State<MyStations> {
                 ],
               ),
               body: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                decoration: BackGroundImage(),
                 child: ListView(
                   children: _stationsLabCardsFrom(myStations, ownerUid),
                 ),
@@ -199,12 +195,7 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        decoration: BackGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           key: _formKey,

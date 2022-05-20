@@ -4,6 +4,7 @@ import 'package:lab_manager/shared/results/registration_results.dart';
 
 import '../../services/auth.dart';
 import '../../shared/utils/functions.dart';
+import '../../shared/widgets/background_image.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -40,12 +41,7 @@ class _RegisterState extends State<Register> {
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        decoration: BackGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           key: _formKey,

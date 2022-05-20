@@ -8,6 +8,7 @@ import 'package:tuple/tuple.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/lab_user.dart';
+import 'background_image.dart';
 
 class ActivityLogs extends StatefulWidget {
   const ActivityLogs({
@@ -85,12 +86,7 @@ class _ActivityLogsState extends State<ActivityLogs> {
                 ),
                 // appBar: SearchBar(title: 'Request Permissions', defaultSearchContent: 'Enter station name...'),
                 body: Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  decoration: BackGroundImage(),
                   child: Scrollbar(
                     child: ListView(
                       children: [

@@ -5,6 +5,7 @@ import 'package:lab_manager/shared/loading_spinner.dart';
 
 import '../../shared/results/registration_results.dart';
 import '../../shared/utils/functions.dart';
+import '../../shared/widgets/background_image.dart';
 import '../../shared/widgets/register_text_form_field.dart';
 
 class ProfileSettings extends StatefulWidget {
@@ -54,12 +55,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
         backgroundColor: Colors.grey.shade900,
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        decoration: BackGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           child: Card(
@@ -157,12 +153,7 @@ class _ProfileSettingEditState extends State<ProfileSettingEdit> {
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        decoration: BackGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           key: _formKey,

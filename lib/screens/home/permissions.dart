@@ -6,6 +6,7 @@ import 'package:lab_manager/services/firestore/stations_db.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../models/lab_user.dart';
+import '../../shared/widgets/background_image.dart';
 
 List<Tuple2<LabStation, AccessPermissions?>> _joinLists(
     List<LabStation> stations,
@@ -97,12 +98,7 @@ class _PermissionsState extends State<Permissions> {
                   ),
                   // appBar: SearchBar(title: 'Request Permissions', defaultSearchContent: 'Enter station name...'),
                   body: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    decoration: BackGroundImage(),
                     child: Scrollbar(
                       child: ListView(
                         children: _accessPermissionCardsFrom(_joinLists(stations, permissions, userId), widget.labUser),

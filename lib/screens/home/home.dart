@@ -10,6 +10,7 @@ import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:lab_manager/shared/widgets/activity_logs.dart';
 import 'package:provider/provider.dart';
 
+import '../../shared/widgets/background_image.dart';
 import '../../shared/widgets/navigation_drawer.dart';
 
 class Home extends StatelessWidget {
@@ -49,12 +50,7 @@ class Home extends StatelessWidget {
               actions: const <Widget>[],
             ),
             body: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              decoration:  BackGroundImage(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,

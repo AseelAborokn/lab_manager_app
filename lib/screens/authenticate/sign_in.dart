@@ -3,6 +3,8 @@ import 'package:lab_manager/services/auth.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:lab_manager/shared/results/registration_results.dart';
 
+import '../../shared/widgets/background_image.dart';
+
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -35,12 +37,7 @@ class _SignInState extends State<SignIn> {
       ),
       resizeToAvoidBottomInset: false ,
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
+        decoration: BackGroundImage(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           child: Card(
