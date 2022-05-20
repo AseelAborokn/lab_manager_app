@@ -48,14 +48,20 @@ class Home extends StatelessWidget {
               // Profile Icon
               actions: const <Widget>[],
             ),
-            body: Center(
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.grey.shade900,
+                      primary: Colors.grey.shade600,
                       elevation: 2.0,
                       shadowColor: Colors.teal,
                     ),
@@ -68,7 +74,7 @@ class Home extends StatelessWidget {
                   const Divider(),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.grey.shade900,
+                        primary: Colors.grey.shade600,
                         elevation: 2.0,
                         shadowColor: Colors.teal,
                       ),
@@ -81,7 +87,7 @@ class Home extends StatelessWidget {
                   const Divider(),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.grey.shade900,
+                        primary: Colors.grey.shade600,
                         elevation: 2.0,
                         shadowColor: Colors.teal,
                       ),

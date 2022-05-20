@@ -40,6 +40,12 @@ class _RegisterState extends State<Register> {
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           key: _formKey,
@@ -71,6 +77,13 @@ class _RegisterState extends State<Register> {
                                 width: 1
                             )
                         ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(
+                                color: Colors.greenAccent,
+                                width: 1
+                            )
+                        ),
                       ),
                       onChanged: (val) {
                         setState(() => username = val);
@@ -95,6 +108,13 @@ class _RegisterState extends State<Register> {
                                 width: 1
                             )
                         ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(
+                                color: Colors.greenAccent,
+                                width: 1
+                            )
+                        ),
                       ),
                       onChanged: (val) {
                         setState(() => phoneNumber = val);
@@ -113,6 +133,13 @@ class _RegisterState extends State<Register> {
                         suffixIconColor: Colors.tealAccent,
                         border: const OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(
+                                color: Colors.greenAccent,
+                                width: 1
+                            )
+                        ),
+                        enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
                             borderSide: const BorderSide(
                                 color: Colors.greenAccent,
@@ -144,6 +171,13 @@ class _RegisterState extends State<Register> {
                                 width: 1
                             )
                         ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(
+                                color: Colors.greenAccent,
+                                width: 1
+                            )
+                        ),
                       ),
                       onChanged: (val) {
                         setState(() => password = val);
@@ -168,6 +202,13 @@ class _RegisterState extends State<Register> {
                                 width: 1
                             )
                         ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(
+                                color: Colors.greenAccent,
+                                width: 1
+                            )
+                        ),
                       ),
                       onChanged: (val) {
                         setState(() => cid = val);
@@ -178,25 +219,33 @@ class _RegisterState extends State<Register> {
                 ),
                 // Buttons
                 Expanded(
-                    child: TextButton.icon(
-                      onPressed: () async {
-                        setState(() => loading = true);
-                        if (_formKey.currentState!.validate()) {
-                          RegistrationResult result = await _authService.signUp(email, password, username, cid, phoneNumber);
-                          if (result.labUser != null) {
-                            Navigator.of(context).pop();
-                          }
-                          else {
-                            setState(() {
-                              errorFound = true;
-                              errorMessage = result.errorMessage ?? "Failed To Register, Please Retry Latter";
-                            });
-                          }
-                        }
-                        setState(() => loading = false);
-                      },
-                      icon: const Icon(Icons.app_registration, color: Colors.greenAccent,),
-                      label: const Text("Register", style: TextStyle(color: Colors.greenAccent))
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () async {
+                            setState(() => loading = true);
+                            if (_formKey.currentState!.validate()) {
+                              RegistrationResult result = await _authService.signUp(email, password, username, cid, phoneNumber);
+                              if (result.labUser != null) {
+                                Navigator.of(context).pop();
+                              }
+                              else {
+                                setState(() {
+                                  errorFound = true;
+                                  errorMessage = result.errorMessage ?? "Failed To Register, Please Retry Latter";
+                                });
+                              }
+                            }
+                            setState(() => loading = false);
+                          },
+                          icon: const Icon(Icons.app_registration, color: Colors.greenAccent,),
+                          label: const Text("Register", style: TextStyle(color: Colors.greenAccent)),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.lightBlue.shade900)
+                          ),
+                        ),
+                      ],
                     ),
                 ),
                 // Error Message

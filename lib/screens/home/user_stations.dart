@@ -51,8 +51,16 @@ class _MyStationsState extends State<MyStations> {
                   )
                 ],
               ),
-              body: ListView(
-                children: _stationsLabCardsFrom(myStations, ownerUid),
+              body: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: ListView(
+                  children: _stationsLabCardsFrom(myStations, ownerUid),
+                ),
               )
           );
         }
@@ -60,13 +68,7 @@ class _MyStationsState extends State<MyStations> {
   }
 
   List<Card> _stationsLabCardsFrom(List<LabStation> stations, String ownerId) {
-    List<Card> result = [
-      Card(
-        color: Colors.grey.shade800,
-        elevation: 0,
-        child: const SizedBox(height: 5),
-      )
-    ];
+    List<Card> result = [];
     for (var station in stations) {
       result.add(_stationCardFrom(station, ownerId));
     }
@@ -197,6 +199,12 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           key: _formKey,
@@ -236,12 +244,12 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
                     ),
                     // Run Time In Secs
                     RegisterTextFromField(
-                        initValue: widget.station?.runTimeInSecs.toString() ?? runTimeInSecs.toString(),
-                        labelText: "Station Run Time Duration",
-                        hintText: widget.station?.runTimeInSecs.toString() ?? "in secs",
-                        iconData: null,
-                        onChanged: (val) => setState(() => runTimeInSecs = (val != null && int.tryParse(val) != null) ? int.tryParse(val)! : 600),
-                        onValidation: (val) => (val == null || int.tryParse(val) == null || int.tryParse(val)! <= 0) ? "Invalid Duration Time" : null
+                      initValue: widget.station?.runTimeInSecs.toString() ?? runTimeInSecs.toString(),
+                      labelText: "Station Run Time Duration",
+                      hintText: widget.station?.runTimeInSecs.toString() ?? "in secs",
+                      iconData: null,
+                      onChanged: (val) => setState(() => runTimeInSecs = (val != null && int.tryParse(val) != null) ? int.tryParse(val)! : 600),
+                      onValidation: (val) => (val == null || int.tryParse(val) == null || int.tryParse(val)! <= 0) ? "Invalid Duration Time" : null
                     ),
                     // Station status
                     Row(

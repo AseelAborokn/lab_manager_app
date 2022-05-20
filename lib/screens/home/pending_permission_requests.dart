@@ -75,112 +75,120 @@ class _PendingPermissionRequestsManagerState extends State<PendingPermissionRequ
                               //TODO("Add Search Bar")
                             ],
                           ),
-                          body: (pendingRequests.isEmpty)
-                              ? Center(
-                                child: TextButton.icon(
-                                  onPressed: null,
-                                  icon: const Icon(Icons.free_breakfast_rounded, color: Colors.brown, size: 50),
-                                  label: const Text("Nothing Todo? Break Time!", style: TextStyle(color: Colors.lightGreen, fontSize: 20)),
-                              ))
-                              : Scrollbar(
-                                child: Column(
-                                  children: [
-                                    Center(
-                                      child: (errorFound)
-                                          ? Text(errorMessage, style: const TextStyle(fontSize: 15, color: Colors.deepOrange),)
-                                          : const Text(""),
-                                    ),
-                                    Expanded(
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: Container(
-                                          margin: const EdgeInsets.fromLTRB(5, 10, 5, 10),
-                                          child: DataTable(
-                                            showBottomBorder: true,
-                                            headingRowHeight: 50,
-                                            headingTextStyle: const TextStyle(color: Colors.lightGreenAccent),
-                                            headingRowColor: MaterialStateProperty.resolveWith((s) => Colors.blueGrey.shade900),
-                                            columns: List<DataColumn>.generate(
-                                              columns.length, (colIndex) =>
-                                              DataColumn(label: Center(child: Text(columns[colIndex], textAlign: TextAlign.center,)))
-                                            ),
-                                            rows: List<DataRow>.generate(
-                                              joinedLists.length, (index) =>
-                                              DataRow(
-                                                color: MaterialStateProperty.resolveWith((s) => (index%2==0) ? Colors.grey.shade200 : Colors.grey.shade400),
-                                                cells: <DataCell>[
-                                                  DataCell(
-                                                    Center(child: Text(joinedLists[index].item3, textAlign: TextAlign.center))
-                                                  ),
-                                                  DataCell(
-                                                      Center(child: Text(joinedLists[index].item2, textAlign: TextAlign.center,))
-                                                  ),
-                                                  DataCell(
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      children: [
-                                                        IconButton(
-                                                          icon: const Icon(Icons.check_circle_outline),
-                                                          color: Colors.lightGreen.shade900,
-                                                          onPressed: () async {
-                                                            try {
-                                                              setState(() => loading = true);
-                                                              AccessPermissions permission = joinedLists[index].item1;
-                                                              await widget._permissionsCollection.update(AccessPermissions(
-                                                                  uid: permission.uid,
-                                                                  stationId: permission.stationId,
-                                                                  ownerId: permission.ownerId,
-                                                                  userId: permission.userId,
-                                                                  cid: permission.cid,
-                                                                  permissionStatus: AccessPermissionStatus.granted
-                                                              ));
-                                                            } catch (e) {
-                                                              setState(() {
-                                                                errorFound = true;
-                                                                errorMessage = "Failed To Authorize Access!";
-                                                              });
-                                                            }
-                                                            setState(() => loading = false);
-                                                          },
-                                                        ),
-                                                        IconButton(
-                                                          icon: const Icon(Icons.cancel_outlined),
-                                                          color: Colors.red,
-                                                          onPressed: () async {
-                                                            try {
-                                                              setState(() => loading = true);
-                                                              AccessPermissions permission = joinedLists[index].item1;
-                                                              await widget._permissionsCollection.update(AccessPermissions(
-                                                                  uid: permission.uid,
-                                                                  stationId: permission.stationId,
-                                                                  ownerId: permission.ownerId,
-                                                                  userId: permission.userId,
-                                                                  cid: permission.cid,
-                                                                  permissionStatus: AccessPermissionStatus.denied
-                                                              ));
-                                                            } catch (e) {
-                                                              setState(() {
-                                                                errorFound = true;
-                                                                errorMessage = "Failed To Authorize Access!";
-                                                              });
-                                                            }
-                                                            setState(() => loading = false);
-                                                          },
-                                                        )
-                                                      ],
+                          body: Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child: (pendingRequests.isEmpty)
+                                ? Center(
+                                  child: TextButton.icon(
+                                    onPressed: null,
+                                    icon: const Icon(Icons.free_breakfast_rounded, color: Colors.brown, size: 50),
+                                    label: const Text("Nothing Todo? Break Time!", style: TextStyle(color: Colors.lightGreen, fontSize: 20)),
+                                ))
+                                : Scrollbar(
+                                  child: Column(
+                                    children: [
+                                      Center(
+                                        child: (errorFound)
+                                            ? Text(errorMessage, style: const TextStyle(fontSize: 15, color: Colors.deepOrange),)
+                                            : const Text(""),
+                                      ),
+                                      Expanded(
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.vertical,
+                                          child: Container(
+                                            margin: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+                                            child: DataTable(
+                                              showBottomBorder: true,
+                                              headingRowHeight: 50,
+                                              headingTextStyle: const TextStyle(color: Colors.lightGreenAccent),
+                                              headingRowColor: MaterialStateProperty.resolveWith((s) => Colors.blueGrey.shade900),
+                                              columns: List<DataColumn>.generate(
+                                                columns.length, (colIndex) =>
+                                                DataColumn(label: Center(child: Text(columns[colIndex], textAlign: TextAlign.center,)))
+                                              ),
+                                              rows: List<DataRow>.generate(
+                                                joinedLists.length, (index) =>
+                                                DataRow(
+                                                  color: MaterialStateProperty.resolveWith((s) => (index%2==0) ? Colors.grey.shade200 : Colors.grey.shade400),
+                                                  cells: <DataCell>[
+                                                    DataCell(
+                                                      Center(child: Text(joinedLists[index].item3, textAlign: TextAlign.center))
+                                                    ),
+                                                    DataCell(
+                                                        Center(child: Text(joinedLists[index].item2, textAlign: TextAlign.center,))
+                                                    ),
+                                                    DataCell(
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          IconButton(
+                                                            icon: const Icon(Icons.check_circle_outline),
+                                                            color: Colors.lightGreen.shade900,
+                                                            onPressed: () async {
+                                                              try {
+                                                                setState(() => loading = true);
+                                                                AccessPermissions permission = joinedLists[index].item1;
+                                                                await widget._permissionsCollection.update(AccessPermissions(
+                                                                    uid: permission.uid,
+                                                                    stationId: permission.stationId,
+                                                                    ownerId: permission.ownerId,
+                                                                    userId: permission.userId,
+                                                                    cid: permission.cid,
+                                                                    permissionStatus: AccessPermissionStatus.granted
+                                                                ));
+                                                              } catch (e) {
+                                                                setState(() {
+                                                                  errorFound = true;
+                                                                  errorMessage = "Failed To Authorize Access!";
+                                                                });
+                                                              }
+                                                              setState(() => loading = false);
+                                                            },
+                                                          ),
+                                                          IconButton(
+                                                            icon: const Icon(Icons.cancel_outlined),
+                                                            color: Colors.red,
+                                                            onPressed: () async {
+                                                              try {
+                                                                setState(() => loading = true);
+                                                                AccessPermissions permission = joinedLists[index].item1;
+                                                                await widget._permissionsCollection.update(AccessPermissions(
+                                                                    uid: permission.uid,
+                                                                    stationId: permission.stationId,
+                                                                    ownerId: permission.ownerId,
+                                                                    userId: permission.userId,
+                                                                    cid: permission.cid,
+                                                                    permissionStatus: AccessPermissionStatus.denied
+                                                                ));
+                                                              } catch (e) {
+                                                                setState(() {
+                                                                  errorFound = true;
+                                                                  errorMessage = "Failed To Authorize Access!";
+                                                                });
+                                                              }
+                                                              setState(() => loading = false);
+                                                            },
+                                                          )
+                                                        ],
+                                                      )
                                                     )
-                                                  )
-                                                ]
+                                                  ]
+                                                )
                                               )
-                                            )
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              )
+                          )
                       );
                     }
                 );

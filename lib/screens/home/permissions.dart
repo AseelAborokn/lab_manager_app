@@ -96,9 +96,17 @@ class _PermissionsState extends State<Permissions> {
                     ],
                   ),
                   // appBar: SearchBar(title: 'Request Permissions', defaultSearchContent: 'Enter station name...'),
-                  body: Scrollbar(
-                    child: ListView(
-                      children: _accessPermissionCardsFrom(_joinLists(stations, permissions, userId), widget.labUser),
+                  body: Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Scrollbar(
+                      child: ListView(
+                        children: _accessPermissionCardsFrom(_joinLists(stations, permissions, userId), widget.labUser),
+                      ),
                     ),
                   )
               );
@@ -108,13 +116,7 @@ class _PermissionsState extends State<Permissions> {
     );
   }
   List<Card> _accessPermissionCardsFrom(List<Tuple2<LabStation, AccessPermissions?>> stations, LabUser user) {
-    List<Card> result = [
-      Card(
-        color: Colors.grey.shade800,
-        elevation: 0,
-        child: const SizedBox(height: 5),
-      )
-    ];
+    List<Card> result = [];
     for (var station in stations) {
       result.add(_accessPermissionCardFrom(station, user));
     }

@@ -54,6 +54,12 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
         backgroundColor: Colors.grey.shade900,
       ),
       body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           child: Card(
@@ -65,6 +71,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
               children: [
                 // Text Inputs
                 Wrap(
+                  runSpacing: 10,
                   children: <Widget>[
                     // username
                     _createListTile("Username:", widget.labUser.username, Icons.person),
@@ -105,6 +112,13 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
           leading: Icon(iconData, color: Colors.teal),
           title: Text(title, style: const TextStyle(color: Colors.teal)),
           subtitle: Text(subtitle, style: const TextStyle(fontSize: 20, color: Colors.white)),
+          autofocus: true,
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(
+              color: Colors.greenAccent,
+            ),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
         )
     );
   }
@@ -143,6 +157,12 @@ class _ProfileSettingEditState extends State<ProfileSettingEdit> {
       ),
       resizeToAvoidBottomInset: false,
       body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           key: _formKey,

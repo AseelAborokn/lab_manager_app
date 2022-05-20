@@ -61,47 +61,57 @@ class _PermissionsManagerState extends State<PermissionsManager> {
                           title: const Text('Manage You Station Permissions', style: TextStyle(color: Colors.teal)),
                           centerTitle: true,
                           backgroundColor: Colors.grey.shade900,
-                          actions: const [
-                            //TODO("Add Search Bar")
-                          ],
                         ),
-                        body: (stations.isEmpty)
-                          ? Center(
-                            child: TextButton.icon(
-                              onPressed: null,
-                              icon: const Icon(Icons.free_breakfast_rounded, color: Colors.brown, size: 50),
-                              label: const Text("No Stations To Be Managed, Add Stations First", style: TextStyle(color: Colors.lightGreen, fontSize: 20)),
+                          resizeToAvoidBottomInset: false,
+                          body: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: (stations.isEmpty)
+                            ? Center(
+                              child: TextButton.icon(
+                                onPressed: null,
+                                icon: const Icon(Icons.free_breakfast_rounded, color: Colors.brown, size: 50),
+                                label: const Text("No Stations To Be Managed, Add Stations First", style: TextStyle(color: Colors.lightGreen, fontSize: 20)),
+                              )
                             )
-                          )
-                          : Scrollbar (
-                            child: Row (
+                            : Column(
                               children: [
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.vertical,
-                                    child: Container(
-                                      margin: const EdgeInsets.fromLTRB(5, 10, 5, 10),
-                                      child: Column(
-                                        children: <Widget>[
-                                          // ManagerPanel
-                                          PanelCard(
-                                            labUser: widget.labUser,
-                                            users: users,
-                                            stations: stations,
+                                Scrollbar (
+                                  child: Row (
+                                    children: [
+                                      Expanded(
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.vertical,
+                                          child: Container(
+                                            margin: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+                                            child: Column(
+                                              children: <Widget>[
+                                                // ManagerPanel
+                                                PanelCard(
+                                                  labUser: widget.labUser,
+                                                  users: users,
+                                                  stations: stations,
+                                                ),
+                                                // Blocked Users
+                                                TableCard(title: 'Authorized Users',
+                                                    isAuthorizedUsersTable: true,
+                                                    data: authorizedUsers),
+                                                // Authorized Users
+                                                TableCard(title: 'Unauthorized Users',
+                                                    isAuthorizedUsersTable: false,
+                                                    data: deniedUsers),
+                                              ],
+                                            ),
                                           ),
-                                          // Blocked Users
-                                          TableCard(title: 'Authorized Users',
-                                              isAuthorizedUsersTable: true,
-                                              data: authorizedUsers),
-                                          // Authorized Users
-                                          TableCard(title: 'Unauthorized Users',
-                                              isAuthorizedUsersTable: false,
-                                              data: deniedUsers),
-                                        ],
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ),
+                          ),
                               ],
                             ),
                         )

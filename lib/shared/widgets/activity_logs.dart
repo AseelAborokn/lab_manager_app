@@ -84,20 +84,28 @@ class _ActivityLogsState extends State<ActivityLogs> {
                   backgroundColor: Colors.grey.shade900,
                 ),
                 // appBar: SearchBar(title: 'Request Permissions', defaultSearchContent: 'Enter station name...'),
-                body: Scrollbar(
-                  child: ListView(
-                    children: [
-                      // Filter Panel
-                      _getFilterPanel(joinedLists, users),
-                      // Table Of Usages Card
-                      _getHistoryLogs(joinedLists),
-                      // Error Message
-                      Center(
-                        child: (errorFound)
-                            ? Text(errorMessage, style: const TextStyle(fontSize: 15, color: Colors.deepOrange),)
-                            : const Text(""),
-                      ),
-                    ],
+                body: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Scrollbar(
+                    child: ListView(
+                      children: [
+                        // Filter Panel
+                        _getFilterPanel(joinedLists, users),
+                        // Table Of Usages Card
+                        _getHistoryLogs(joinedLists),
+                        // Error Message
+                        Center(
+                          child: (errorFound)
+                              ? Text(errorMessage, style: const TextStyle(fontSize: 15, color: Colors.deepOrange),)
+                              : const Text(""),
+                        ),
+                      ],
+                    ),
                   ),
                 )
             );

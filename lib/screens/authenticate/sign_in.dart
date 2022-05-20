@@ -35,6 +35,12 @@ class _SignInState extends State<SignIn> {
       ),
       resizeToAvoidBottomInset: false ,
       body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/shared/assets/images/lab2.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         child: Form(
           child: Card(
@@ -65,6 +71,13 @@ class _SignInState extends State<SignIn> {
                                   width: 1
                               )
                           ),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.greenAccent,
+                                  width: 1
+                              )
+                          ),
                         ),
                         onChanged: (val) {
                           setState(() => email = val);
@@ -89,6 +102,13 @@ class _SignInState extends State<SignIn> {
                                   width: 1
                               )
                           ),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.greenAccent,
+                                  width: 1
+                              )
+                          ),
                         ),
                         onChanged: (val) {
                           setState(() => password = val);
@@ -104,31 +124,37 @@ class _SignInState extends State<SignIn> {
                     children: [
                       // Sign In
                       TextButton.icon(
-                          onPressed: () async {
-                            setState(() => loading = true);
-                            RegistrationResult result = await _authService.signIn(email, password);
-                            if (result.labUser != null) {
-                              if(!mounted) return;
-                              Navigator.of(context).pop();
-                            }
-                            else {
-                              setState(() {
-                                errorFound = true;
-                                errorMessage = result.errorMessage ?? "Failed To Login, Please Retry Latter";
-                              });
-                            }
-                            setState(() => loading = false);
-                          },
-                          icon: const Icon(Icons.login, color: Colors.greenAccent,),
-                          label: const Text("Sign In", style: TextStyle(color: Colors.greenAccent))
+                        onPressed: () async {
+                          setState(() => loading = true);
+                          RegistrationResult result = await _authService.signIn(email, password);
+                          if (result.labUser != null) {
+                            if(!mounted) return;
+                            Navigator.of(context).pop();
+                          }
+                          else {
+                            setState(() {
+                              errorFound = true;
+                              errorMessage = result.errorMessage ?? "Failed To Login, Please Retry Latter";
+                            });
+                          }
+                          setState(() => loading = false);
+                        },
+                        icon: const Icon(Icons.login, color: Colors.greenAccent,),
+                        label: const Text("Sign In", style: TextStyle(color: Colors.greenAccent)),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.lightBlue.shade900)
+                        ),
                       ),
                       // Small Space In Between
                       const SizedBox(width: 20,),
                       // Register
                       TextButton.icon(
-                          onPressed: () => Navigator.of(context).pushNamed("/authenticate/register"),
-                          icon: const Icon(Icons.person, color: Colors.greenAccent,),
-                          label: const Text("Don't have an account?", style: TextStyle(color: Colors.greenAccent))
+                        onPressed: () => Navigator.of(context).pushNamed("/authenticate/register"),
+                        icon: const Icon(Icons.person, color: Colors.greenAccent,),
+                        label: const Text("Don't have an account?", style: TextStyle(color: Colors.greenAccent)),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.lightBlue.shade900)
+                        )
                       )
                     ],
                   ),
