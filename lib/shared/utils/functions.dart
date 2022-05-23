@@ -1,3 +1,4 @@
+///@nodoc
 import 'package:email_validator/email_validator.dart';
 
 bool validPhoneNumber(String phoneNumber) {

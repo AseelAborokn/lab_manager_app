@@ -1,3 +1,4 @@
+///@nodoc
 import 'package:flutter/material.dart';
 import 'package:lab_manager/screens/authenticate/sign_in.dart';
 

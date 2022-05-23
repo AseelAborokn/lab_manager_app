@@ -1,3 +1,12 @@
+import 'package:lab_manager/models/lab_user.dart';
+import 'package:lab_manager/screens/home/permissions.dart';
+
+/// Access Permission Status
+///
+/// - [unrequested] : In case there is no pending request from this user to the owner.
+/// - [requested] : In case there is a pending request from this user to the owner which not handled yet.
+/// - [granted] : In case the user can access this station.
+/// - [denied] : In case the user cannot access this station.
 enum AccessPermissionStatus {
   unrequested,
   requested,
@@ -5,13 +14,20 @@ enum AccessPermissionStatus {
   denied
 }
 
+/// Model which represents document in Permissions collection.
 class AccessPermissions {
   // Fields
+  /// [uid] - DocumentId.
   String uid;
+  /// [stationId] - StationId = DocumentId (readable name).
   String stationId;
+  /// [ownerId] - OwnerId, the documentId of [LabUser] who own the station.
   String ownerId;
+  /// [userId] - userId, the documentId of [LabUser] who requested to access this station.
   String userId;
+  /// [cid] - cardId, the id of the card of the user who requested to access this station.
   String cid;
+  /// [permissionStatus] - Accessibility Permission Status.
   AccessPermissionStatus permissionStatus;
 
   // Constructor
@@ -24,7 +40,7 @@ class AccessPermissions {
     this.permissionStatus = AccessPermissionStatus.unrequested
   });
 
-  // Create a Admission object from JSON object.
+  /// Converts a JSON object to [AccessPermissions] instance.
   AccessPermissions.fromJson(String uid, Map<String, dynamic> fields) : this(
     uid: uid,
     stationId: fields['station_id'],
@@ -34,7 +50,7 @@ class AccessPermissions {
     permissionStatus: AccessPermissionStatus.values.firstWhere((element) => element.toString() == 'AccessPermissionStatus.' + fields['permission_status'].toString()),
   );
 
-  // Create JSON object from Admission object.
+  /// Converts [AccessPermissions] instance to JSON object.
   Map<String, dynamic> toJson() {
     return Map<String, dynamic>.from({
       "station_id": stationId,

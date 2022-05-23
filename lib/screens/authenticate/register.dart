@@ -1,3 +1,4 @@
+///@nodoc
 import 'package:flutter/material.dart';
 import 'package:lab_manager/shared/loading_spinner.dart';
 import 'package:lab_manager/shared/results/registration_results.dart';

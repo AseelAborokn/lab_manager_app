@@ -3,15 +3,21 @@ import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
 import 'package:lab_manager/shared/results/registration_results.dart';
 
+/// Authentication Service - Responsible to handle all firebaseAuth API requests.
 class AuthService {
+  /// [_firebaseAuth] - FirebaseAuth instance
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  /// [_usersCollection] - LabUsers collection.
   final UsersCollection _usersCollection = UsersCollection();
 
+  /// Gets list of the authentication statuses of the current user.
   Stream<User?> get user {
     return _firebaseAuth.authStateChanges();
   }
 
-  // Sign-In email & password
+  /// SignIn user with the given [email] & [password]
+  ///
+  /// Returns [RegistrationResult].
   Future<RegistrationResult> signIn(String email, String password) async {
     try {
       // Authenticate the user
@@ -28,6 +34,15 @@ class AuthService {
   }
 
   // Register email & password
+  /// SignUp a new user with the given values.
+  ///
+  /// [email] - user's email.
+  /// [password] - user's password.
+  /// [username] - user's username.
+  /// [cid] - user's card id.
+  /// [phoneNumber] - user's phone number.
+  ///
+  /// Returns [RegistrationResult].
   Future<RegistrationResult> signUp(
     String email,
     String password,
@@ -65,6 +80,9 @@ class AuthService {
     }
   }
 
+  /// Update the users data!
+  ///
+  /// Returns [RegistrationResult].
   Future<RegistrationResult> update(
       String uid,
       String email,
@@ -93,7 +111,7 @@ class AuthService {
       return RegistrationResult(errorMessage: e.toString());
     }
   }
-  // Sign-Out
+  /// SignOut the current user from the application.
   Future<void> signOut() async {
     try {
       return await _firebaseAuth.signOut();
@@ -102,6 +120,7 @@ class AuthService {
     }
   }
 
+  /// Checks if the given [email], [username], [cid] and [uid] are unique across all the documents in LabUsers collection.
   Future<String?> _checkUniqueInput(String email, String username, String? cid, String? uid) async {
     if ((await _usersCollection.checkUniqueEmail(email, uid)) != 0) {
       return "The Email is Already Taken!";

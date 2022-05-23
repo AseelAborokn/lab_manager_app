@@ -1,3 +1,4 @@
+///@nodoc
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_station.dart';

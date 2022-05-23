@@ -1,6 +1,6 @@
+///@nodoc
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lab_manager/models/lab_user.dart';
 import 'package:lab_manager/screens/authenticate/authenticate.dart';
 import 'package:lab_manager/screens/authenticate/register.dart';
 import 'package:lab_manager/screens/authenticate/sign_in.dart';
@@ -16,7 +16,8 @@ void main() async {
   runApp(const MyApp());
 }
 
-// This widget is the root of your application.
+/// MyApp is the root widget for the whole project.
+/// We use MaterialApp in order to style the app and route through the pages.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 

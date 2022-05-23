@@ -1,33 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lab_manager/models/usage_history.dart';
+import 'package:lab_manager/models/lab_usage_history.dart';
 
+/// UsageHistoryCollection Service - handles all firestore API requests to UsageHistory collection.
 class UsageHistoryCollection {
-  // Database name
+  /// [collectionName] - the collection name as shown at the firestore.
   static const collectionName = "UsageHistory";
-  // collection references
+  // [_db] - private instance which is connected to the collection.
   final CollectionReference _db = FirebaseFirestore.instance.collection(collectionName);
 
-  DocumentReference<UsageHistory> _getDic(String uid) =>
-      _db.doc(uid).withConverter<UsageHistory>(
-          fromFirestore: (snapshot, _) =>
-              UsageHistory.fromJson(snapshot.id, snapshot.data()!),
-          toFirestore: (UsageHistory usageHistory, _) => usageHistory.toJson()
-      );
-
-  Query<UsageHistory> _withUsageHistoryConvertor(Query query) =>
-      query.withConverter<UsageHistory>(
-          fromFirestore: (snapshot, _) => UsageHistory.fromJson(snapshot.id, snapshot.data()!),
-          toFirestore: (UsageHistory usageHistory, _) => usageHistory.toJson()
-      );
-
+  /// Returns List of [UsageHistory] of all the documents in the collection.
   Stream<List<UsageHistory>> getAllUsageHistory() =>
       _db.withConverter<UsageHistory>(
           fromFirestore: (snapshot, _) =>
               UsageHistory.fromJson(snapshot.id, snapshot.data()!),
           toFirestore: (UsageHistory usageHistory, _) => usageHistory.toJson()
       ).snapshots().map((event) => event.docs.map((e) => e.data()).toList());
-
-  // Create a UsageHistory
-  // Delete a UsageHistory
-  // Update a UsageHistory
 }

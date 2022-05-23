@@ -1,23 +1,35 @@
+/// LabStation Status
+///
+/// - [available] : In case the station is available for usage.
+/// - [unavailable] : In case the station is unavailable for usage.
 enum LabStationStatus {
   available,
-  busy,
   unavailable
 }
 
+/// LabStation Accessibility
+///
+/// - [public] : In case the station can be accessed by anyone.
+/// - [restricted] : In case authorization is needed to access the station.
 enum LabStationAccessibility {
   public,
   restricted
 }
 
+/// Model which represents document in LabStations collection.
 class LabStation {
-  // Document Id
-  String uid;
-
   // Fields
+  /// [uid] - DocumentId.
+  String uid;
+  /// [name] - The name of the station.
   String name;
+  /// [ownerId] - OwnerId, the documentId of [LabUser] who own the station.
   String ownerId;
+  /// [runTimeInSecs] - Time period which the station runs from activation (in Seconds).
   int runTimeInSecs;
+  /// [status] - status of the station.
   LabStationStatus status;
+  /// [accessibility] - is the station public/restricted.
   LabStationAccessibility accessibility;
 
   // Constructor
@@ -30,7 +42,7 @@ class LabStation {
     this.accessibility = LabStationAccessibility.public
   });
 
-  // Create a LabStation object from JSON object.
+  /// Converts a JSON object to [LabStation] instance.
   LabStation.fromJson(String uid, Map<String, dynamic> fields) : this(
       uid: uid,
       name: fields['name'],
@@ -40,7 +52,7 @@ class LabStation {
       accessibility: LabStationAccessibility.values.firstWhere((element) => element.toString() == 'LabStationAccessibility.' + fields['accessibility'].toString()),
   );
 
-  // Create JSON object from LabStation object.
+  /// Converts [LabStation] instance to JSON object.
   Map<String, dynamic> toJson() {
     return Map<String, dynamic>.from({
       "name": name,

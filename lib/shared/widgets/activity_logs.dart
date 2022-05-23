@@ -1,7 +1,8 @@
+///@nodoc
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_station.dart';
-import 'package:lab_manager/models/usage_history.dart';
+import 'package:lab_manager/models/lab_usage_history.dart';
 import 'package:lab_manager/services/firestore/usage_history_db.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
 import 'package:tuple/tuple.dart';

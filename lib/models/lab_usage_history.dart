@@ -1,11 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lab_manager/models/lab_station.dart';
+import 'package:lab_manager/models/lab_user.dart';
 
 class UsageHistory {
   // Fields
+  /// [uid] - DocumentId.
   String uid;
+  /// [stationId] - StationId, the documentId of [LabStation] of the station.
   String stationId;
+  /// [userId] - userId, the documentId of [LabUser] who used the station.
   String userId;
+  /// [startedAt] - timestamp which the user started his usage.
   Timestamp startedAt;
+  /// [finishedAt] - timestamp which the user finished his usage.
   Timestamp finishedAt;
 
   // Constructor
@@ -17,7 +24,7 @@ class UsageHistory {
     required this.finishedAt,
   });
 
-  // Create a UsageHistory object from JSON object.
+  /// Converts a JSON object to [UsageHistory] instance.
   UsageHistory.fromJson(String uid, Map<String, dynamic> fields) : this(
     uid: uid,
     stationId: fields['station_id'],
@@ -26,7 +33,7 @@ class UsageHistory {
     finishedAt: fields['finished_at'] as Timestamp,
   );
 
-  // Create JSON object from UsageHistory object.
+  /// Converts [UsageHistory] instance to JSON object.
   Map<String, dynamic> toJson() {
     return Map<String, dynamic>.from({
       "station_id": stationId,

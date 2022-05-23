@@ -1,3 +1,4 @@
+///@nodoc
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_station.dart';
 import 'package:lab_manager/services/firestore/stations_db.dart';

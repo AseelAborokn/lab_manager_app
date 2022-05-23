@@ -1,3 +1,4 @@
+///@nodoc
 import 'package:flutter/material.dart';
 
 class RegisterTextFromField extends StatelessWidget {
