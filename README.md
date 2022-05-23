@@ -1,6 +1,6 @@
 # lab_manager
 
-## Documenting My App
+## Documentes For The Main Code Logic
 In order to create the documents locally run in the terminal the following commands:
 - run `dart pub global activate dartdoc`
 - run `dart pub global run dartdoc .`
