@@ -6,7 +6,7 @@ In order to create the documents locally run in the terminal the following comma
 - run `dart pub global run dartdoc .`
 => These will generate all the documentations at `./lib/doc` folder.
   
-Then run the following commands:
+In order to view the documentations:
 - `dart pub global run dhttpd --path ./doc/api`
 => This command will initiate a web server which will host the documentations.
   
