@@ -1,12 +1,12 @@
 # lab_manager
 
-## Documenting My App
+## Documentes For The Main Code Logic
 In order to create the documents locally run in the terminal the following commands:
 - run `dart pub global activate dartdoc`
 - run `dart pub global run dartdoc .`
 => These will generate all the documentations at `./lib/doc` folder.
   
-Then run the following commands:
+In order to view the documentations:
 - `dart pub global run dhttpd --path ./doc/api`
 => This command will initiate a web server which will host the documentations.
   
