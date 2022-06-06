@@ -64,7 +64,6 @@ class _PermissionsManagerState extends State<PermissionsManager> {
                           centerTitle: true,
                           backgroundColor: Colors.grey.shade900,
                         ),
-                          resizeToAvoidBottomInset: false,
                           body: Container(
                           decoration: backGroundImage(),
                           child: (stations.isEmpty)
@@ -75,10 +74,10 @@ class _PermissionsManagerState extends State<PermissionsManager> {
                                 label: const Text("No Stations To Be Managed, Add Stations First", style: TextStyle(color: Colors.lightGreen, fontSize: 20)),
                               )
                             )
-                            : Column(
-                              children: [
-                                Scrollbar (
-                                  child: Row (
+                            : Scrollbar (
+                              child: ListView(
+                                children: [
+                                  Row (
                                     children: [
                                       Expanded(
                                         child: SingleChildScrollView(
@@ -108,9 +107,9 @@ class _PermissionsManagerState extends State<PermissionsManager> {
                                       ),
                                     ],
                                   ),
+                                ],
+                              ),
                           ),
-                              ],
-                            ),
                         )
                       );
                     }

@@ -55,8 +55,10 @@ class _MyStationsState extends State<MyStations> {
               ),
               body: Container(
                 decoration: backGroundImage(),
-                child: ListView(
-                  children: _stationsLabCardsFrom(myStations, ownerUid),
+                child: Scrollbar(
+                  child: ListView(
+                    children: _stationsLabCardsFrom(myStations, ownerUid),
+                  ),
                 ),
               )
           );

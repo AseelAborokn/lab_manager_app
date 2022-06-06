@@ -87,7 +87,7 @@ class _PendingPermissionRequestsManagerState extends State<PendingPermissionRequ
                                     label: const Text("Nothing Todo? Break Time!", style: TextStyle(color: Colors.lightGreen, fontSize: 20)),
                                 ))
                                 : Scrollbar(
-                                  child: Column(
+                                  child: ListView(
                                     children: [
                                       Center(
                                         child: (errorFound)
