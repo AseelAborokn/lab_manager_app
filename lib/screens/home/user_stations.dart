@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_station.dart';
 import 'package:lab_manager/services/firestore/stations_db.dart';
+import 'package:lab_manager/shared/widgets/read_only_register_text_form_field.dart';
 import 'package:lab_manager/shared/widgets/register_text_form_field.dart';
 import 'package:lab_manager/shared/widgets/submit_form_buttons.dart';
 
@@ -180,13 +181,22 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
   bool statusUpdated = false;
   bool accessibilityUpdated = false;
   int runTimeInSecs = 600;
-
+  bool shouldUseDefaultValues = true;
   String errorMessage = "";
   bool errorFound = false;
   bool loading = false;
 
   @override
   Widget build(BuildContext context) {
+    if (widget.station != null && shouldUseDefaultValues) {
+      stationName = widget.station!.name;
+      stationId = widget.station!.uid;
+      status = widget.station!.status;
+      accessibility = widget.station!.accessibility;
+      runTimeInSecs = widget.station!.runTimeInSecs;
+      shouldUseDefaultValues = false;
+    }
+
     return (loading) ? const LoadingSpinner() : Scaffold(
       backgroundColor: Colors.grey.shade800,
       appBar: AppBar(
@@ -213,16 +223,11 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
                   runSpacing: 10,
                   children: <Widget>[
                     // Station Id
-                    RegisterTextFromField(
+                    ReadOnlyRegisterTextFromField(
                         initValue: widget.station?.uid,
                         labelText: "Station Id",
                         hintText: widget.station?.uid ?? "station id",
                         iconData: null,
-                        onChanged: (val) => setState(() => stationId = val),
-                        onValidation: (val) =>
-                        (val == null || val.isEmpty)
-                            ? "Invalid Station Id"
-                            : null
                     ),
                     // Station Name
                     RegisterTextFromField(
