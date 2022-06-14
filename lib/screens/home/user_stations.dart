@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_station.dart';
 import 'package:lab_manager/services/firestore/stations_db.dart';
+import 'package:lab_manager/services/firestore/usage_history_db.dart';
 import 'package:lab_manager/shared/widgets/read_only_register_text_form_field.dart';
 import 'package:lab_manager/shared/widgets/register_text_form_field.dart';
 import 'package:lab_manager/shared/widgets/submit_form_buttons.dart';
@@ -15,6 +16,7 @@ class MyStations extends StatefulWidget {
 
   final LabUser labUser;
   final StationsCollection _stationsCollection = StationsCollection();
+  final UsageHistoryCollection _usageHistoryCollection = UsageHistoryCollection();
 
   @override
   State<MyStations> createState() => _MyStationsState();
@@ -113,6 +115,7 @@ class _MyStationsState extends State<MyStations> {
                               primary: Colors.red.shade900
                             ),
                             onPressed: () async {
+                              await widget._usageHistoryCollection.deleteAllUsagesForStation(station.uid);
                               await widget._stationsCollection.delete(station.uid);
                             },
                             child: const Text("Delete")
