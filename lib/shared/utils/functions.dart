@@ -13,5 +13,5 @@ bool validEmail(String email) {
 }
 
 bool validCid(String? cid) {
-  return (cid == null || cid.length == 8);
+  return (cid == null || cid.length > 14);
 }

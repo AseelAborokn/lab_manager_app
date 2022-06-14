@@ -8,14 +8,6 @@ class UsageHistoryCollection {
   // [_db] - private instance which is connected to the collection.
   final CollectionReference _db = FirebaseFirestore.instance.collection(collectionName);
 
-  /// Returns [DocumentReference] as [UsageHistory] corresponding to the given [uid].
-  DocumentReference<UsageHistory> _getDoc(String uid) =>
-      _db.doc(uid).withConverter<UsageHistory>(
-          fromFirestore: (snapshot, _) =>
-              UsageHistory.fromJson(snapshot.id, snapshot.data()!),
-          toFirestore: (UsageHistory usageHistory, _) => usageHistory.toJson()
-      );
-
   /// Returns [Query] as [UsageHistory] corresponding to the given [query]
   Query<UsageHistory> _withLabUserConvertor(Query query) =>
       query.withConverter<UsageHistory>(
