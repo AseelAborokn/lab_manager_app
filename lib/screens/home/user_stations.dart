@@ -49,7 +49,7 @@ class _MyStationsState extends State<MyStations> {
                   TextButton.icon(
                     onPressed: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => StationUpsertPage(title: "Create New Station",ownerId: ownerUid)));
+                          MaterialPageRoute(builder: (context) => StationUpsertPage(title: "Create New Station",create: true,ownerId: ownerUid)));
                     },
                     icon: const Icon(Icons.add, color: Colors.tealAccent, size: 30),
                     label: const Text(""),
@@ -126,7 +126,7 @@ class _MyStationsState extends State<MyStations> {
                               ),
                               onPressed: () {
                                 Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => StationUpsertPage(title: "Update ${station.name}", ownerId: ownerId, station: station)));
+                                    MaterialPageRoute(builder: (context) => StationUpsertPage(title: "Update ${station.name}", ownerId: ownerId, create: false,station: station)));
                               },
                               child: const Text("Update")
                           ),
@@ -162,12 +162,14 @@ class StationUpsertPage extends StatefulWidget {
     Key? key,
     required this.ownerId,
     required this.title,
+    required this.create,
     this.station
   }) : super(key: key);
 
   final String ownerId;
   final String title;
   final LabStation? station;
+  final bool create;
   @override
   State<StationUpsertPage> createState() => _StationUpsertPageState();
 }
@@ -226,12 +228,23 @@ class _StationUpsertPageState extends State<StationUpsertPage> {
                   runSpacing: 10,
                   children: <Widget>[
                     // Station Id
-                    ReadOnlyRegisterTextFromField(
+                    (widget.create) ?
+                    (RegisterTextFromField(
                         initValue: widget.station?.uid,
                         labelText: "Station Id",
                         hintText: widget.station?.uid ?? "station id",
                         iconData: null,
-                    ),
+                        onChanged: (val) => setState(() => stationId = val),
+                        onValidation: (val) =>
+                        (val == null || val.isEmpty)
+                            ? "Invalid Station Id"
+                            : null
+                    )) : (ReadOnlyRegisterTextFromField(
+                        initValue: widget.station?.uid,
+                        labelText: "Station Id",
+                        hintText: widget.station?.uid ?? "station id",
+                        iconData: null,
+                    )),
                     // Station Name
                     RegisterTextFromField(
                         initValue: widget.station?.name,
