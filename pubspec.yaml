@@ -45,6 +45,8 @@ dependencies:
   intl: ^0.17.0
   dartdoc: ^5.1.2
   dhttpd: ^4.0.1
+  csv: ^5.0.1
+  external_path: ^1.0.1
 
 dev_dependencies:
   flutter_test:

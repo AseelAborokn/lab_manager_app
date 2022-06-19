@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+import 'package:lab_manager/interfaces/convertable_to_csv.dart';
 import 'package:lab_manager/models/lab_station.dart';
 import 'package:lab_manager/models/lab_user.dart';
 
-class UsageHistory {
+class UsageHistory implements ConvertibleToCSV {
   // Fields
   /// [uid] - DocumentId.
   String uid;
@@ -42,4 +44,14 @@ class UsageHistory {
       "finished_at": finishedAt,
     });
   }
+
+  @override
+  /// Converts the current object to csv raw data row
+  List<String> rowData() => [
+    uid,
+    stationId,
+    userId,
+    DateFormat('yyyy-MM-dd-kk-mm').format(startedAt.toDate()).toString(),
+    DateFormat('yyyy-MM-dd-kk-mm').format(startedAt.toDate()).toString()
+  ];
 }

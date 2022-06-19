@@ -115,10 +115,12 @@ class _MyStationsState extends State<MyStations> {
                               primary: Colors.red.shade900
                             ),
                             onPressed: () async {
+                              String filename = '${station.uid}-UsageHistoryBackUpDate';
+                              await widget._usageHistoryCollection.exportCSVFileForStationsUsages(station.uid, filename);
                               await widget._usageHistoryCollection.deleteAllUsagesForStation(station.uid);
                               await widget._stationsCollection.delete(station.uid);
                             },
-                            child: const Text("Delete")
+                            child: const Text("Backup Usage History & Delete Station")
                           ),
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
