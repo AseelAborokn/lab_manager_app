@@ -168,6 +168,8 @@ class _PanelCardState extends State<PanelCard> {
     List<LabStation> stations = widget.stations;
     List<LabUser> possibleUsers = widget.users
         .where((user) => (user.uid != widget.labUser.uid && user.cid != null && user.cid!.isNotEmpty)).toList();
+    selectedUser = possibleUsers.first;
+    selectedStation = stations.first;
 
     return (loading) ? const LoadingSpinner() : Form(
       key: _formKey,
