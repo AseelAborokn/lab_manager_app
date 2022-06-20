@@ -227,7 +227,7 @@ class _ActivityLogsState extends State<ActivityLogs> {
                       const SizedBox(width: 20),
                       ElevatedButton(
                           onPressed: () async {
-                            String filename = '${joinedLists.first.item1.stationId}-UsageHistoryBackUp-Date';
+                            String filename = 'UsageHistoryBackUp-Date';
                             // Creating empty csv file.
                             File csvFile = await FileSystemService.createEmptyCSVFile(filename);
                             // Generating the content of the csv file.
