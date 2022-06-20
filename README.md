@@ -12,6 +12,15 @@ In order to view the documentations:
   
 Then navigate to: `http://localhost:8080/`
 
+## Build APK & Install The Application
+- Open Terminal.
+- Navigate to the root folder of the application.
+- run `flutter apk build` command.
+- An `app-release.apk` file will be created at `./build/app/outputs/flutter-apk/app-release.apk`.
+- Copy this file to your device.
+- Install the application (May need to provide your device permissions to install untrusted apps!).
+- Enjoy!
+
 ## Project Hierarchy
 - `lib`
   - `models`: Contains models and customized objects used in the application.
