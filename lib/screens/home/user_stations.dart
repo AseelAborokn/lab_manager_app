@@ -116,9 +116,9 @@ class _MyStationsState extends State<MyStations> {
                             ),
                             onPressed: () async {
                               String filename = '${station.uid}-DeletionBackUp-Date';
-                              await widget._usageHistoryCollection.exportCSVFileForStationDeletionBackup(station.uid, filename);
-                              await widget._usageHistoryCollection.deleteAllUsagesForStation(station.uid);
-                              await widget._stationsCollection.delete(station.uid);
+                              await widget._usageHistoryCollection.exportCSVFileForStationDeletionBackup(station, filename);
+                              // await widget._usageHistoryCollection.deleteAllUsagesForStation(station.uid);
+                              // await widget._stationsCollection.delete(station.uid);
                             },
                             child: const Text("Backup Usage History & Delete Station")
                           ),

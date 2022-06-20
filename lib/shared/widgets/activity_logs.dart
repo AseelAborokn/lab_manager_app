@@ -230,8 +230,8 @@ class _ActivityLogsState extends State<ActivityLogs> {
                             String filename = '${joinedLists.first.item1.stationId}-UsageHistoryBackUp-Date';
                             // Creating empty csv file.
                             File csvFile = await FileSystemService.createEmptyCSVFile(filename);
-                            // Writing the headers of the csv file.
-                            await FileSystemService.writeCSVHeaderToFile(csvFile, [[
+                            // Generating the content of the csv file.
+                            List<List<String>> content = [[
                               "Log_Id",
                               "Station_Id",
                               "User_Id",
@@ -240,8 +240,7 @@ class _ActivityLogsState extends State<ActivityLogs> {
                               "User_Email_Address",
                               "Starting_Time",
                               "Finishing_Time"
-                            ]]);
-                            // Generating the content of the csv file.
+                            ]];
                             var data = joinedLists.map((tuple) => [
                               tuple.item1.uid,
                               tuple.item1.stationId,
@@ -251,13 +250,13 @@ class _ActivityLogsState extends State<ActivityLogs> {
                               tuple.item2.email,
                               DateFormat('yyyy-MM-dd-kk-mm-ss').format(tuple.item1.startedAt.toDate()),
                               DateFormat('yyyy-MM-dd-kk-mm-ss').format(tuple.item1.finishedAt.toDate()),
-                            ]).toList();
+                            ]);
                             // Writing the data of the csv file.
-                            print(data);
-                            await FileSystemService.writeCSVDataToFile(csvFile, data);
+                            content.addAll(data);
+                            await FileSystemService.writeToCSVFile(csvFile, content);
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.amberAccent
+                              primary: Colors.blueGrey
                           ),
                           child: const Icon(Icons.history_edu)
                       ),

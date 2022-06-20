@@ -26,15 +26,9 @@ class FileSystemService {
     return '$path/$filename.csv';
   }
 
-  /// Writes the [header] to the given [csvFile].
-  static Future<void> writeCSVHeaderToFile(File csvFile, List<List<String>> header) async {
-    String csvHeaders = const ListToCsvConverter().convert(header);
-    await csvFile.writeAsString(csvHeaders);
-  }
-
-  /// Writes the [data] of rows to the given [csvFile].
-  static Future<void> writeCSVDataToFile(File csvFile, List<List<String>> data) async {
-    String csvContent = const ListToCsvConverter().convert(data);
+  /// Writes the [content] to the given [csvFile].
+  static Future<void> writeToCSVFile(File csvFile, List<List<String>> content) async {
+    String csvContent = const ListToCsvConverter().convert(content);
     await csvFile.writeAsString(csvContent);
   }
 }
