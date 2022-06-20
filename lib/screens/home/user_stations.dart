@@ -115,8 +115,8 @@ class _MyStationsState extends State<MyStations> {
                               primary: Colors.red.shade900
                             ),
                             onPressed: () async {
-                              String filename = '${station.uid}-UsageHistoryBackUpDate';
-                              await widget._usageHistoryCollection.exportCSVFileForStationsUsages(station.uid, filename);
+                              String filename = '${station.uid}-DeletionBackUp-Date';
+                              await widget._usageHistoryCollection.exportCSVFileForStationDeletionBackup(station.uid, filename);
                               await widget._usageHistoryCollection.deleteAllUsagesForStation(station.uid);
                               await widget._stationsCollection.delete(station.uid);
                             },

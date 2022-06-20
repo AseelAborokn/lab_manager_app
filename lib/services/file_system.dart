@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
 import 'package:external_path/external_path.dart';
 
@@ -23,5 +24,17 @@ class FileSystemService {
   static Future<String> getPathToCSVFile(String filename) async {
     final path = await _localPath;
     return '$path/$filename.csv';
+  }
+
+  /// Writes the [header] to the given [csvFile].
+  static Future<void> writeCSVHeaderToFile(File csvFile, List<List<String>> header) async {
+    String csvHeaders = const ListToCsvConverter().convert(header);
+    await csvFile.writeAsString(csvHeaders);
+  }
+
+  /// Writes the [data] of rows to the given [csvFile].
+  static Future<void> writeCSVDataToFile(File csvFile, List<List<String>> data) async {
+    String csvContent = const ListToCsvConverter().convert(data);
+    await csvFile.writeAsString(csvContent);
   }
 }

@@ -1,8 +1,11 @@
 ///@nodoc
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lab_manager/models/lab_station.dart';
 import 'package:lab_manager/models/lab_usage_history.dart';
+import 'package:lab_manager/services/file_system.dart';
 import 'package:lab_manager/services/firestore/usage_history_db.dart';
 import 'package:lab_manager/services/firestore/users_db.dart';
 import 'package:tuple/tuple.dart';
@@ -220,6 +223,43 @@ class _ActivityLogsState extends State<ActivityLogs> {
                               primary: Colors.red
                           ),
                           child: const Icon(Icons.cancel_outlined)
+                      ),
+                      const SizedBox(width: 20),
+                      ElevatedButton(
+                          onPressed: () async {
+                            String filename = '${joinedLists.first.item1.stationId}-UsageHistoryBackUp-Date';
+                            // Creating empty csv file.
+                            File csvFile = await FileSystemService.createEmptyCSVFile(filename);
+                            // Writing the headers of the csv file.
+                            await FileSystemService.writeCSVHeaderToFile(csvFile, [[
+                              "Log_Id",
+                              "Station_Id",
+                              "User_Id",
+                              "User_Card_Id",
+                              "User_Phone_Number",
+                              "User_Email_Address",
+                              "Starting_Time",
+                              "Finishing_Time"
+                            ]]);
+                            // Generating the content of the csv file.
+                            var data = joinedLists.map((tuple) => [
+                              tuple.item1.uid,
+                              tuple.item1.stationId,
+                              tuple.item2.username,
+                              (tuple.item2.cid ?? ""),
+                              tuple.item2.phoneNumber,
+                              tuple.item2.email,
+                              DateFormat('yyyy-MM-dd-kk-mm-ss').format(tuple.item1.startedAt.toDate()),
+                              DateFormat('yyyy-MM-dd-kk-mm-ss').format(tuple.item1.finishedAt.toDate()),
+                            ]).toList();
+                            // Writing the data of the csv file.
+                            print(data);
+                            await FileSystemService.writeCSVDataToFile(csvFile, data);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.amberAccent
+                          ),
+                          child: const Icon(Icons.history_edu)
                       ),
                     ],
                   ),
