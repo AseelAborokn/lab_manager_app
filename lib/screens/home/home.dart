@@ -56,12 +56,41 @@ class Home extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Expanded(flex: 1,child: Divider()),
+                  Divider(),
                   Container(
                     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    child: Expanded(
-                      flex: 1,
-                      child: ElevatedButton(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey.shade600,
+                        elevation: 20.0,
+                        shadowColor: Colors.lightBlueAccent,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => Permissions(labUser: labUser)));
+                      },
+                      child: const Text("Request Permissions To Access Stations", style: TextStyle(fontSize: 15))
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey.shade600,
+                          elevation: 20.0,
+                          shadowColor: Colors.lightBlueAccent
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => PermissionsManager(labUser: labUser)));
+                        },
+                        child: const Text("Manage Permissions To Access Stations", style: TextStyle(fontSize: 15))
+                    ),
+                  ),
+                  Divider(),
+                  Container(
+                    // margin: const EdgeInsets.fromLTRB(10, 350, 10, 10),
+                    child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.grey.shade600,
                           elevation: 20.0,
@@ -69,58 +98,20 @@ class Home extends StatelessWidget {
                         ),
                         onPressed: () {
                           Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Permissions(labUser: labUser)));
-                        },
-                        child: const Text("Request Permissions To Access Stations", style: TextStyle(fontSize: 15))
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    child: Expanded(
-                      flex: 1,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.grey.shade600,
-                            elevation: 20.0,
-                            shadowColor: Colors.lightBlueAccent
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => PermissionsManager(labUser: labUser)));
-                          },
-                          child: const Text("Manage Permissions To Access Stations", style: TextStyle(fontSize: 15))
-                      ),
-                    ),
-                  ),
-                  const Expanded(flex: 10,child: Divider()),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    child: Expanded(
-                      flex: 1,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.grey.shade600,
-                            elevation: 20.0,
-                            shadowColor: Colors.lightBlueAccent,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => StreamBuilder<List<LabStation>>(
-                                  stream: _stationsCollection.getStationsByOwnerId(labUser.uid),
-                                  builder: (context, AsyncSnapshot<List<LabStation>> stationsSnapShot) {
-                                    if (stationsSnapShot.hasData ) {
-                                      return ActivityLogs(labUser: labUser, title: "My Stations Activity logs", showMyUsagesOnly: false, myStations: stationsSnapShot.data);
-                                    }
-                                    return ActivityLogs(labUser: labUser, title: "My Stations Activity logs", showMyUsagesOnly: false);
+                              MaterialPageRoute(builder: (context) => StreamBuilder<List<LabStation>>(
+                                stream: _stationsCollection.getStationsByOwnerId(labUser.uid),
+                                builder: (context, AsyncSnapshot<List<LabStation>> stationsSnapShot) {
+                                  if (stationsSnapShot.hasData ) {
+                                    return ActivityLogs(labUser: labUser, title: "My Stations Activity logs", showMyUsagesOnly: false, myStations: stationsSnapShot.data);
                                   }
-                                )));
-                          },
-                          child: const Text("Check My Stations Usages History", style: TextStyle(fontSize: 15),)
-                      ),
+                                  return ActivityLogs(labUser: labUser, title: "My Stations Activity logs", showMyUsagesOnly: false);
+                                }
+                              )));
+                        },
+                        child: const Text("Check My Stations Usages History", style: TextStyle(fontSize: 15),)
                     ),
                   ),
-                  const Expanded(flex: 1,child: Divider()),
+                  Divider(),
                 ],
               ),
             )
