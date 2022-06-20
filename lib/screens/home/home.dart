@@ -32,7 +32,7 @@ class Home extends StatelessWidget {
             drawer: NavigationDrawerWidget(labUser: labUser),
             appBar: AppBar(
               // Title
-              title: const Text('LabManager', style: TextStyle(color: Colors.teal)),
+              title: const Text('LabManager', style: TextStyle(color: Colors.lightBlueAccent)),
               centerTitle: true,
               // Application Bar Color
               backgroundColor: Colors.grey.shade900,
@@ -41,7 +41,7 @@ class Home extends StatelessWidget {
                 builder: (context) =>
                     IconButton(
                       icon: const Icon(Icons.menu),
-                      color: Colors.teal,
+                      color: Colors.lightBlueAccent,
                       onPressed: () {
                         Scaffold.of(context).openDrawer();
                       },
