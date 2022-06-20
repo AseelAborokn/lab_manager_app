@@ -121,6 +121,9 @@ class _PermissionsManagerState extends State<PermissionsManager> {
   }
 
   List<Tuple3<AccessPermissions, String, String>> _filterByPermissionStatus(AccessPermissionStatus status) {
+    if (permissions.isEmpty || users.isEmpty || stations.isEmpty) {
+      return [];
+    }
     return permissions
         .where((permission) => permission.permissionStatus == status)
         .map((permission) => Tuple3(
