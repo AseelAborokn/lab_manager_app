@@ -56,7 +56,7 @@ class Home extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Divider(),
+                  Divider(height: 25,),
                   Container(
                     margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: ElevatedButton(
