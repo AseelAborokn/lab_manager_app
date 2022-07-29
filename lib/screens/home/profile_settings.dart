@@ -103,20 +103,18 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
     );
   }
 
-  Expanded _createListTile(String title, String subtitle, IconData iconData) {
-    return Expanded(
-        child: ListTile(
-          leading: Icon(iconData, color: Colors.teal),
-          title: Text(title, style: const TextStyle(color: Colors.teal)),
-          subtitle: Text(subtitle, style: const TextStyle(fontSize: 20, color: Colors.white)),
-          autofocus: true,
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(
-              color: Colors.greenAccent,
-            ),
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-        )
+  ListTile _createListTile(String title, String subtitle, IconData iconData) {
+    return ListTile(
+      leading: Icon(iconData, color: Colors.teal),
+      title: Text(title, style: const TextStyle(color: Colors.teal)),
+      subtitle: Text(subtitle, style: const TextStyle(fontSize: 20, color: Colors.white)),
+      autofocus: true,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(
+          color: Colors.greenAccent,
+        ),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
     );
   }
 }
